@@ -1,11 +1,14 @@
+
 import * as bodyParser from 'body-parser';
 import * as dotenv from 'dotenv';
 import * as express from 'express';
 import * as morgan from 'morgan';
+import apiController from 'apiController';
 
 dotenv.config();
 
 const app: express.Application = express();
+
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
@@ -14,5 +17,6 @@ app.use(
     extended: true,
   })
 );
+app.use('/api', apiController);
 
 export default app;
