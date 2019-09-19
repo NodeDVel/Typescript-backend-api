@@ -8,16 +8,16 @@ const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
     const board: Board = res.locals.board;
 
     try {
-        await BoardLike.findOne({
+        const boardlike: BoardLike = await BoardLike.findOne({
             where: {
                 userPk: user.pk,
                 boardPk: board.pk,
             }, 
         }).then((boardlike: BoardLike) => {
             if(boardlike) {
-                boardlike.destroy({
+                BoardLike.destroy({
                     where: {
-                        pk:  boardlike.pk,
+                        pk: user.pk,
                     },
                 });
 
@@ -28,7 +28,7 @@ const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
                     },
                 });
             } else {
-                boardlike.createdAt({
+                BoardLike.create({
                     userPk: user.pk,
                     boardPk: board.pk,
                 });
@@ -41,6 +41,7 @@ const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
                 });
             }
         });
+
     } catch(err) {
         console.error(err);
         res.status(500).json({
