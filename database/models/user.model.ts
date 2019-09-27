@@ -11,6 +11,7 @@ import {
 import Board from './board.model';
 import BoardCommentLike from './boardCommentLike.model';
 import BoardLike from './boardlike.model';
+import Hastag from './hastag.model';
 
 @Table({
     timestamps: true,
@@ -43,4 +44,6 @@ export default class User extends Model<User> {
     @HasMany(() => BoardCommentLike)
     public boardCommentLike: BoardCommentLike[];
 
+    @HasMany(() => Hastag)
+    public hastag:  Hastag[];
 }
