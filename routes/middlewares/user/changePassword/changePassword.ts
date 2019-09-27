@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import User from '@Model/user.model';
+
+import User from '../../../../database/models/user.model';
 
 const changePassword = async(req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;

@@ -1,9 +1,9 @@
 
+import apiController from 'apiController';
 import * as bodyParser from 'body-parser';
 import * as dotenv from 'dotenv';
 import * as express from 'express';
 import * as morgan from 'morgan';
-import apiController from 'apiController';
 
 dotenv.config();
 

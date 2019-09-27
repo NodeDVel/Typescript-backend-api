@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from 'express';
 import * as crypto from 'crypto';
-import * as randomstring from 'randomstring';
-import User from '@Model/user.model';
+import { NextFunction, Request, Response } from 'express';
+
+import User from '../../../../database/models/user.model';
 
 const passwordEncryption = async (req: Request, res: Response, next: NextFunction) => {
     const user: User =  res.locals.user;

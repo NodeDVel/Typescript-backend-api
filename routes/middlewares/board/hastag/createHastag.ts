@@ -37,7 +37,7 @@ const createHastag = async (req: Request, res: Response, next: NextFunction) => 
         result: {
             SUCCESS: true,
             message: 'hastag 생성되었습니다'
-        }
+        },
     });
 } 
 
