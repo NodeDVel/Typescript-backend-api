@@ -3,15 +3,21 @@ import { Router } from 'express';
 const router = Router();
 
 import verify from '../middlewares/jwt/verifyToken';
-import CheckUser from '@Middleware/user/common/CheckUser';
-import createBoard from '@Middleware/board/post/createBoard';
-import CheckComment from '@Middleware/board/comment/common/CheckComment';
-import deleteComment from '@Middleware/board/comment/deleteComment';
-import updateComment from '@Middleware/board/comment/updateComment';
+
+import CheckComment from '../middlewares/board/comment/common/CheckComment';
+import CheckUser from '../middlewares/user/common/CheckUser';
+
+import createComment from '../middlewares/board/comment/createComment';
+import deleteComment from '../middlewares/board/comment/deleteComment';
+import createBoardCommentLike from '../middlewares/board/comment/like/createBoardCommentLike';
+import deleteBoardCommentLike from '../middlewares/board/comment/like/deleteBoardCommentLike';
+import updateComment from '../middlewares/board/comment/updateComment';
 
 router.use(verify, CheckUser);
-router.post('/write', createBoard);
+
+router.post('/write', CheckComment, createComment);
 router.post('/delete', CheckComment, CheckUser, deleteComment);
 router.post('/update', CheckComment, CheckUser, updateComment);
+router.post('/like', CheckComment, createBoardCommentLike, deleteBoardCommentLike);
 
 export default router;

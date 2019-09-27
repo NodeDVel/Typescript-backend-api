@@ -1,20 +1,20 @@
 import {
     AllowNull,
     Column,
-    CreatedAt,
     DataType,
-    Default,
     HasMany,
-    HasOne,
     Model,
     PrimaryKey,
     Table,
-    UpdatedAt,
-    BelongsTo,
 } from 'sequelize-typescript';
 
 import Board from './board.model';
+import BoardCommentLike from './boardCommentLike.model';
 import BoardLike from './boardlike.model';
+
+@Table({
+    timestamps: true,
+})
 
 export default class User extends Model<User> {
     @PrimaryKey
@@ -35,9 +35,12 @@ export default class User extends Model<User> {
     public name: string;
 
     @HasMany(() => Board)
-    public board: Board;
+    public board: Board[];
 
     @HasMany(() => BoardLike)
-    public boardLike: BoardLike;
+    public boardLike: BoardLike[];
+
+    @HasMany(() => BoardCommentLike)
+    public boardCommentLike: BoardCommentLike[];
 
 }

@@ -10,9 +10,9 @@ import passwordEncryption from '../middlewares/user/common/passwordEncryption';
 import login from '../middlewares/user/login/login';
 import loignReqCheck from '../middlewares/user/login/loginReqCheck';
 
+import issueToken from '../middlewares/jwt/issueToken';
 import register from '../middlewares/user/register/register';
 import registReqCheck from '../middlewares/user/register/registerReqCheck';
-import issueToken from '@Middleware/jwt/issueToken';
 
 router.post('/change', changepassword);
 router.post('/register', CheckUser, register, registReqCheck, passwordEncryption);

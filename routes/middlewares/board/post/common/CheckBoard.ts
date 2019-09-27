@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import Board from '@Model/board.model';
+import Board from '../../../../../database/models/board.model';
 
 const CheckBoard = async (req: Request, res: Response, next: NextFunction) => {
     const pk = req.query.boardId;

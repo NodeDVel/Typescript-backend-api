@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import Comment from '@Model/comment.model';
+import Comment from '../../../../../database/models/boardComment.model';
 
 const CheckComment = async (req: Request, res: Response, next: NextFunction) => {
     const pk = req.query.commentPk;
@@ -27,7 +27,7 @@ const CheckComment = async (req: Request, res: Response, next: NextFunction) => 
         res.status(500).json({
             result: {
                 SUCCESS: false,
-                message: 'Server error'
+                message: 'Server error',
             },
         });
     }
