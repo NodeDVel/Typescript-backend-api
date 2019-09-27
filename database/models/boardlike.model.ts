@@ -14,7 +14,7 @@ import User from './user.model';
 import Board from './board.model';
 
 @Table({
-timestamps: true,
+  timestamps: true,
 })
 export default class BoardLike extends Model<BoardLike> {
   @PrimaryKey

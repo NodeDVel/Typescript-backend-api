@@ -5,15 +5,17 @@ import {
     Column,
     DataType,
     ForeignKey,
-    HasMany,
     Model,
     PrimaryKey,
-    Table
+    Table,
 } from 'sequelize-typescript';
 
 import Board from './board.model';
 import User from './user.model';
 
+@Table({
+  timestamps: false,
+})
 export default class Hastag extends Model<Hastag> {
     @AutoIncrement
     @PrimaryKey

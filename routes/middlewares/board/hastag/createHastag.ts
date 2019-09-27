@@ -12,14 +12,16 @@ const createHastag = async (req: Request, res: Response, next: NextFunction) => 
             await Hastag.create({
                 board_pk: board.pk,
                 title: hastag_name[i],
-            }).then(result => {
-                if (!result) {
+            }).then((hastag: Hastag) => {
+                if (!hastag) {
                     res.status(412).json({
                         result: {
                             SUCCESS: false,
                             message: 'database error',
                         },
                     });
+                } else {
+                    next();
                 }
             });
         }

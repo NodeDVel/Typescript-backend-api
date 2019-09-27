@@ -16,7 +16,6 @@ import Hastag from './hastag.model';
 @Table({
     timestamps: true,
 })
-
 export default class User extends Model<User> {
     @PrimaryKey
     @AllowNull(false)

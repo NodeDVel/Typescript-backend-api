@@ -4,7 +4,7 @@ import Board from '../../../../database/models/board.model';
 import Hastag from '../../../../database/models/hastag.model';
 import User from '../../../../database/models/user.model';
 
-const hastagLog = async (req: Request, res: Response, next: NextFunction) => {
+const hastagStorageLog = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;
     const board: Board = res.locals.board;
 
@@ -30,4 +30,4 @@ const hastagLog = async (req: Request, res: Response, next: NextFunction) => {
     });
 }
 
-export default hastagLog;
+export default hastagStorageLog;

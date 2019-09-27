@@ -1,13 +1,13 @@
 import {
-    AllowNull,
-    AutoIncrement,
-    BelongsTo,
-    Column,
-    DataType,
-    ForeignKey,
-    Model,
-    PrimaryKey,
-    Table,
+  AllowNull,
+  AutoIncrement,
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  PrimaryKey,
+  Table,
 } from 'sequelize-typescript';
 
 import Board from './board.model';
@@ -18,43 +18,43 @@ import User from './user.model';
     timestamps: true,
 })
 export default class BoardCommentLike extends Model<BoardCommentLike> {
-    @AutoIncrement
-    @PrimaryKey
-    @AllowNull(false)
-    @Column(DataType.INTEGER)
-    public pk: number;
+  @AutoIncrement
+  @PrimaryKey
+  @AllowNull(false)
+  @Column(DataType.INTEGER)
+  public pk: number;
 
-    @ForeignKey(() => Board)
-    @AllowNull(false)
-    @Column(DataType.INTEGER)
-    public borad_pk: number;
+  @ForeignKey(() => Board)
+  @AllowNull(false)
+  @Column(DataType.INTEGER)
+  public borad_pk: number;
 
-    @ForeignKey(() => BoardComment)
-    @AllowNull(false)
-    @Column(DataType.INTEGER)
-    public comment_pk: number;
+  @ForeignKey(() => BoardComment)
+  @AllowNull(false)
+  @Column(DataType.INTEGER)
+  public comment_pk: number;
 
-    @ForeignKey(() => User)
-    @AllowNull(false)
-    @Column(DataType.UUID)
-    public user_pk: number;
+  @ForeignKey(() => User)
+  @AllowNull(false)
+  @Column(DataType.UUID)
+  public user_pk: number;
 
-    @AllowNull(true)
-    @Column(DataType.STRING)
-    public user_name: string;
+  @AllowNull(true)
+  @Column(DataType.STRING)
+  public user_name: string;
 
-    @BelongsTo(() => User, {
-        onDelete: 'CASCADE',
-    })
-    public user: User;
+  @BelongsTo(() => User, {
+      onDelete: 'CASCADE',
+  })
+  public user: User;
 
-    @BelongsTo(() => BoardComment, {
-        onDelete: 'CASCADE'
-    })
-    public boardComment: BoardComment;
+  @BelongsTo(() => BoardComment, {
+      onDelete: 'CASCADE'
+  })
+  public boardComment: BoardComment;
 
-    @BelongsTo(() => Board, {
-        onDelete: 'CASCADE'
-    })
-    public board: Board;
+  @BelongsTo(() => Board, {
+      onDelete: 'CASCADE'
+  })
+  public board: Board;
 }
