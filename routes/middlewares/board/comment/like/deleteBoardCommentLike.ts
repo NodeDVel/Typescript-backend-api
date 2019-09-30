@@ -10,6 +10,8 @@ const deleteBoardCommentLike = async (req: Request, res: Response, next: NextFun
     const board: Board = res.locals.board;
     const boardComment: BoardComment = res.locals.comment;
 
+    //board.findOne()
+    
     const commentLike = await BoardCommentLike.findOne({
         where: {
             user_pk: user.pk,

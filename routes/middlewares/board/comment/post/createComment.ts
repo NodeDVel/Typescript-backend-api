@@ -6,6 +6,9 @@ const createComment = async (req: Request, res: Response, next: NextFunction) =>
     const { user, board } = res.locals;
 
     try {
+
+        //board.findOne()
+        
         const boardcomment: BoardComment = await BoardComment.create({
             board_pk: board.pk,
             user_pk: user.pk,

@@ -7,22 +7,22 @@ import commentController from './comment.controller';
 
 import verify from '../middlewares/jwt/verifyToken';
 
-import CheckBoard from '../middlewares/board/post/common/CheckBoard';
+import getBoard from '../middlewares/board/post/get/getBoard';
 import CheckUser from '../middlewares/user/common/CheckUser';
 
 import likeBoardLog from '../middlewares/board/likeLog/likeBoardLog';
-import createBoard from '../middlewares/board/post/createBoard';
-import deleteBoard from '../middlewares/board/post/deleteBoard';
-import likeBoard from '../middlewares/board/post/likeBoard';
-import updateBoard from '../middlewares/board/post/updateBoard';
+import deleteBoard from '../middlewares/board/post/delete/deleteBoard';
+import likeBoard from '../middlewares/board/post/like/likeBoard';
+import updateBoard from '../middlewares/board/post/patch/updateBoard';
+import createBoard from '../middlewares/board/post/post/createBoard';
 
 router.use(verify);
 router.use('/comment', commentController);
 
-router.get('/log', likeBoardLog);
-router.post('/write', createBoard);
-router.post('/delete', CheckBoard, CheckUser, deleteBoard);
-router.post('/like', CheckBoard, likeBoard);
-router.put('/update', CheckBoard, CheckUser, updateBoard);
+router.get('/board', likeBoardLog);
+router.post('/board', createBoard);
+router.post('/board', getBoard, CheckUser, deleteBoard);
+router.post('/board', getBoard, likeBoard);
+router.put('/board', getBoard, CheckUser, updateBoard);
 
 export default router;

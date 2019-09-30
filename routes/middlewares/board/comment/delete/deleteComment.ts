@@ -8,7 +8,6 @@ const deleteComment = async (req: Request, res: Response, next: NextFunction) =>
     const user: User = res.locals.user;
     const board_pk = req.query.board_pk;
     const comment_pk = req.query.comment_pk;
-    const comment: Comment = res.locals.comment;
 
     try {
         const board: Board = await Board.findOne({
@@ -17,9 +16,9 @@ const deleteComment = async (req: Request, res: Response, next: NextFunction) =>
             },
             include: [
                 {
-                    model: comment_pk,
+                    model: Comment,
                     where: {
-                        pk: comment.pk,
+                        pk: comment_pk,
                         user_pk: user.pk,
                     },
                 },
@@ -29,7 +28,7 @@ const deleteComment = async (req: Request, res: Response, next: NextFunction) =>
         if(board) {
             await Comment.destroy({
                 where: {
-                    pk: comment.pk,
+                    pk: comment_pk,
                 },
             });
 

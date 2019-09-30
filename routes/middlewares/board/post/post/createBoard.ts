@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
-import Board from '../../../../database/models/board.model';
-import User from '../../../../database/models/user.model';
+import Board from '@Model/board.model';
+import User from '@Model/user.model';
 
 const createBoard = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;

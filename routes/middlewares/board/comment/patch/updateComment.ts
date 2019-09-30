@@ -6,10 +6,12 @@ import User from '../../../../../database/models/user.model';
 
 const updateComment = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;
-    const board: Board = res.locals.board;
+    const board_pk = req.query.board_pk;
     const { content } = req.body;
 
     try {
+
+        //board.findOne()
         const comment: BoardComment = await BoardComment.update(
             {   
                 content: content,
@@ -17,7 +19,7 @@ const updateComment = async (req: Request, res: Response, next: NextFunction) =>
             }, 
             {
                 where: {
-                    pk: board.pk,
+                    pk: board_pk,
                 }
             });
 

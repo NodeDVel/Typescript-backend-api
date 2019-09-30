@@ -1,17 +1,17 @@
 import { NextFunction, Request, Response } from 'express';
 
-import Board from '../../../../database/models/board.model';
-import User from '../../../../database/models/user.model';
+import Board from '@Model/board.model';
+import User from '@Model/user.model';
 
 const deleteBoard = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;
-    const board_pk: string | number  = req.query.board_pk;
+    const board_pk: number | undefined = req.query.board_pk;
 
     try {
         const board: Board = await Board.findOne({
             where: {
                 pk: user.pk,
-                board_pk: board_pk
+                board_pk: board_pk,
             },
         });
 
