@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import BoardComment from '../../../../database/models/boardComment.model';
+import BoardComment from '../../../../../database/models/boardComment.model';
 
 const createComment = async (req: Request, res: Response, next: NextFunction) => {
     const { comment } = req.body;

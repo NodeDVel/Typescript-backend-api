@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 
-import Board from '../../../../database/models/board.model';
-import Comment from '../../../../database/models/boardComment.model';
-import User from '../../../../database/models/user.model';
+import Board from '../../../../../database/models/board.model';
+import Comment from '../../../../../database/models/boardComment.model';
+import User from '../../../../../database/models/user.model';
 
 const deleteComment = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;

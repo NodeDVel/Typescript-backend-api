@@ -23,14 +23,14 @@
     "sequelize": "^5.18.4",
     "sequelize-typescript": "^1.0.0",
     "ts-node": "^8.4.1",
-    "tslint": "^5.20.0",
     "tslint-config-standard": "^8.0.1",
     "typescript": "^3.6.3",
     "uuid": "^3.3.3",
     "yarn": "^1.19.0"
   },
   "devDependencies": {
-    "@types/validator": "^10.11.3"
+    "@types/validator": "^10.11.3",
+    "tslint": "^5.20.0"
   },
   "scripts": {
     "start": "./node_modules/.bin/ts-node -r tsconfig-paths/register www.ts",
