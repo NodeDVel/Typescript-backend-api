@@ -5,8 +5,9 @@ import User from '@Model/user.model';
 
 const updateBoard = async (req:  Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;
-    const board: Board = res.locals.board;
-    const { title, content } = req.body;
+    const board_pk = req.query.board_pk
+    const title: string | undefined = req.body;
+    const content: string | undefined = req.body;
 
     try {
         await Board.update(
@@ -17,7 +18,7 @@ const updateBoard = async (req:  Request, res: Response, next: NextFunction) => 
             },
             {
             where: {
-                pk: board.pk,
+                pk: board_pk,
             },
         }).then((board: Board) => {
             if(!board) {

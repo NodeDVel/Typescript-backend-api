@@ -24,7 +24,6 @@
     "sequelize-typescript": "^1.0.0",
     "ts-node": "^8.4.1",
     "tslint-config-standard": "^8.0.1",
-    "typescript": "^3.6.3",
     "uuid": "^3.3.3",
     "yarn": "^1.19.0"
   },
@@ -32,6 +31,7 @@
     "@types/node": "^12.7.8",
     "@types/validator": "^10.11.3",
     "tslint": "^5.20.0",
+    "typescript": "^3.6.3",
     "typescript-tslint-plugin": "^0.5.4"
   },
   "scripts": {

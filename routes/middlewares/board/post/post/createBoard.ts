@@ -5,7 +5,8 @@ import User from '@Model/user.model';
 
 const createBoard = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;
-    const { title, content } = req.body;
+    const title: string | undefined = req.body.title;
+    const content: string | undefined = req.body.content;
 
     try {
         const board: Board = await Board.create({

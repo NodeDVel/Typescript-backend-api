@@ -6,13 +6,15 @@ import User from '@Model/user.model';
 
 const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;
-    const board: Board = res.locals.board;
+    const board_pk: number | undefined = req.query.board_pk;
 
     try {
+
+        //board.findOne()
         await BoardLike.findOne({
             where: {
                 user_pk: user.pk,
-                board_pk: board.pk,
+                board_pk: board_pk,
             }, 
         }).then(async (boardlike: BoardLike) => {
             if(boardlike) {
@@ -26,7 +28,7 @@ const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
                     like: false,
                 }, {
                     where: {
-                        pk: board.pk,
+                        pk: board_pk,
                     },
                 });
 
@@ -39,7 +41,7 @@ const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
             } else {
                 await BoardLike.create({
                     user_pk: user.pk,
-                    board_pk: board.pk,
+                    board_pk: board_pk,
                 });
 
                 await BoardLike.update(
@@ -47,7 +49,7 @@ const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
                         like: true,
                     }, {
                         where: {
-                        pk: board.pk
+                        pk: board_pk
                        },
                 });
 
