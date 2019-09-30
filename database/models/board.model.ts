@@ -18,7 +18,7 @@ import Hastag from './hastag.model';
 import User from './user.model';
 
 @Table({
-    timestamps: false,
+  timestamps: false,
 })
 export default class Board extends Model<Board> {
   @PrimaryKey
