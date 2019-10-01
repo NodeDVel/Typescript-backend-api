@@ -17,16 +17,16 @@ const deleteBoard = async (req: Request, res: Response, next: NextFunction) => {
 
         if(board) {
             await Board.destroy({
-                where: {
-                    pk: board_pk,
-                },
+              where: {
+                  pk: board_pk,
+              },
             });
 
             res.status(200).json({
-                result: {
-                    SUCCESS: true,
-                    message: '게시물이 정상적으로 삭제되었습니다',
-                },
+              result: {
+                  SUCCESS: true,
+                  message: '게시물이 정상적으로 삭제되었습니다',
+              },
             });
         } else {
             res.status(412).json({

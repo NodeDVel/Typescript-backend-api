@@ -9,13 +9,12 @@ const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
     const board_pk: number | undefined = req.query.board_pk;
 
     try {
-        const board: Board = await Board.findOne(
+        const board: Board | undefined = await Board.findOne(
           {
             where: {
-                
+                board_pk,
             },
-          }
-        );
+          });
 
         if (board) {
           await BoardLike.findOne({

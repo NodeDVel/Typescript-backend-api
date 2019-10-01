@@ -10,14 +10,14 @@ const updateComment = async (req: Request, res: Response, next: NextFunction) =>
     const content: string | undefined = req.body;
 
     try {
-        const board: Board = await Board.findOne({
+        const board: Board | undefined = await Board.findOne({
           where: {
             board_pk,
           },
         });
 
         if (board) {
-          const comment: BoardComment = await BoardComment.update(
+          const comment: BoardComment[] = await BoardComment.update(
               {   
                 author: user.name,
                 content,
@@ -25,7 +25,7 @@ const updateComment = async (req: Request, res: Response, next: NextFunction) =>
               {
                 where: {
                   pk: board_pk,
-                }
+                },
               });
     
             if(!comment) {

@@ -10,7 +10,7 @@ const createComment = async (req: Request, res: Response, next: NextFunction) =>
     const comment: string | undefined = req.body.comment;
 
     try {
-        const board: Board = await Board.findOne({
+        const board: Board | undefined = await Board.findOne({
           where: {
             board_pk,
           },

@@ -21,7 +21,7 @@ const deleteHastagLog = async (req: Request, res: Response, next: NextFunction) 
         res.status(412).json({
             result: {
                 SUCCESS: false,
-                message: 'DB Error',
+                message: 'DB Error', // 정상적으로 삭제되지 않았을 시에 db 에러
             },
         });
     } else {

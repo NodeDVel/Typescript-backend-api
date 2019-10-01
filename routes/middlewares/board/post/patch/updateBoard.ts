@@ -10,7 +10,7 @@ const updateBoard = async (req:  Request, res: Response, next: NextFunction) => 
     const content: string | undefined = req.body;
 
     try {
-        const update_board: Board = await Board.findOne({
+        const update_board: Board | undefined = await Board.findOne({
           where: {
             board_pk,
           },
