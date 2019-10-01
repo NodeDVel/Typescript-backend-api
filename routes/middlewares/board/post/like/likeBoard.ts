@@ -9,58 +9,66 @@ const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
     const board_pk: number | undefined = req.query.board_pk;
 
     try {
-        // board.findOne()
-        await BoardLike.findOne({
+        const board: Board = await Board.findOne(
+          {
             where: {
-                user_pk: user.pk,
-                board_pk,
-            }, 
-        }).then(async (boardlike: BoardLike) => {
-            if(boardlike) {
-                await BoardLike.destroy({
-                    where: {
-                        pk: user.pk,
-                    },
-                });
+                
+            },
+          }
+        );
 
-                await BoardLike.update({
-                    like: false,
-                }, {
-                    where: {
-                        pk: board_pk,
-                    },
-                });
-
-                res.status(200).json({
-                    result: {
-                        SUCCESS: true,
-                        message: '좋아요 취소',
-                    },
-                });
-            } else {
-                await BoardLike.create({
-                    user_pk: user.pk,
-                    board_pk,
-                });
-
-                await BoardLike.update(
-                    {
-                        like: true,
+        if (board) {
+          await BoardLike.findOne({
+              where: {
+                  user_pk: user.pk,
+                  board_pk,
+              }, 
+            }).then(async (boardlike: BoardLike) => {
+                if(boardlike) {
+                    await BoardLike.destroy({
+                        where: {
+                            pk: user.pk,
+                        },
+                    });
+    
+                    await BoardLike.update({
+                        like: false,
                     }, {
                         where: {
-                        pk: board_pk
-                       },
-                });
-
-                res.status(200).json({
-                    result: {
-                        SUCCESS: true,
-                        message: '좋아요 성공',
-                    }
-                });
-            }
-        });
-
+                            pk: board_pk,
+                        },
+                    });
+    
+                    res.status(200).json({
+                        result: {
+                            SUCCESS: true,
+                            message: '좋아요 취소',
+                        },
+                    });
+                } else {
+                    await BoardLike.create({
+                        user_pk: user.pk,
+                        board_pk,
+                    });
+    
+                    await BoardLike.update(
+                        {
+                            like: true,
+                        }, {
+                            where: {
+                            pk: board_pk
+                           },
+                    });
+    
+                    res.status(200).json({
+                        result: {
+                            SUCCESS: true,
+                            message: '좋아요 성공',
+                        }
+                    });
+                }
+            });
+        }
     } catch(err) {
         console.error(err);
         res.status(500).json({
