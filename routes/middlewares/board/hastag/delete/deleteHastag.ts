@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 
-import Board from '../../../../database/models/board.model';
-import Hastag from '../../../../database/models/hastag.model';
-import User from '../../../../database/models/user.model';
+import Board from '../../../../../database/models/board.model';
+import Hastag from '../../../../../database/models/hastag.model';
+import User from '../../../../../database/models/user.model';
 
 const deleteHastagLog = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;

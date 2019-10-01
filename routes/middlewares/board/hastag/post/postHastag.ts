@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 
-import Board from '../../../../database/models/board.model';
-import Hastag from '../../../../database/models/hastag.model';
+import Board from '../../../../../database/models/board.model';
+import Hastag from '../../../../../database/models/hastag.model';
 
-const createHastag = async (req: Request, res: Response, next: NextFunction) => {
+const postHastag = async (req: Request, res: Response, next: NextFunction) => {
     const hastag_name: string | number | undefined = req.body;
     const board_pk = req.body.board_pk;
 
@@ -41,4 +41,4 @@ const createHastag = async (req: Request, res: Response, next: NextFunction) => 
     });
 } 
 
-export default createHastag;
+export default postHastag;
