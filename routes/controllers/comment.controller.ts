@@ -12,7 +12,7 @@ import deleteBoardCommentLike from '../middlewares/board/comment/like/deleteBoar
 
 import deleteComment from '../middlewares/board/comment/delete/deleteComment';
 import updateComment from '../middlewares/board/comment/patch/updateComment';
-import createComment from '../middlewares/board/comment/post/createComment';
+import createComment from '../middlewares/board/comment/post/postComment';
 
 router.use(verify, CheckUser);
 
