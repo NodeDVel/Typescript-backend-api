@@ -1,16 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
+
 import BoardComment from '../../../../../database/models/boardComment.model';
+import User from '../../../../../database/models/user.model';
 
 const createComment = async (req: Request, res: Response, next: NextFunction) => {
-    const { comment } = req.body;
-    const { user, board } = res.locals;
+    const user: User = res.locals.user;
+    const board_pk: number = req.body.board_pk;
+    const comment: string | undefined = req.body.comment;
 
     try {
 
-        //board.findOne()
+        // board.findOne()
         
         const boardcomment: BoardComment = await BoardComment.create({
-            board_pk: board.pk,
+            board_pk,
             user_pk: user.pk,
             author: user.name,
             comment,

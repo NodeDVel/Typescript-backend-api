@@ -10,20 +10,20 @@ const createBoardCommentLike = async (req: Request, res: Response, next: NextFun
     const board_pk = req.query.board_pk;
     const comment_pk = req.query.comment_pk;
 
-    //board.findOne()
+    // board.findOne()
 
     const commentLike: BoardCommentLike = await BoardCommentLike.findOne({
         where: {
             user_pk: user.pk,
-            board_pk: board_pk,
-            comment_pk: comment_pk,
+            board_pk,
+            comment_pk,
         },
     });
 
     if(!commentLike) {
         BoardCommentLike.create({
             user_pk: user.pk,
-            comment_pk: comment_pk,
+            comment_pk,
         });
 
         res.status(200).json({

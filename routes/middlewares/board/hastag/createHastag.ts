@@ -4,13 +4,13 @@ import Board from '../../../../database/models/board.model';
 import Hastag from '../../../../database/models/hastag.model';
 
 const createHastag = async (req: Request, res: Response, next: NextFunction) => {
-    const board: Board = res.locals.board;
-    const hastag_name: string | number = req.body;
+    const hastag_name: string | number | undefined = req.body;
+    const board_pk = req.body.board_pk;
 
     if(hastag_name){
         for(let i = 0; i < hastag_name; i++) {
             await Hastag.create({
-                board_pk: board.pk,
+                board_pk,
                 title: hastag_name[i],
             }).then((hastag: Hastag) => {
                 if (!hastag) {

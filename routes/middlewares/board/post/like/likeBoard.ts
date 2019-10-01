@@ -9,12 +9,11 @@ const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
     const board_pk: number | undefined = req.query.board_pk;
 
     try {
-
-        //board.findOne()
+        // board.findOne()
         await BoardLike.findOne({
             where: {
                 user_pk: user.pk,
-                board_pk: board_pk,
+                board_pk,
             }, 
         }).then(async (boardlike: BoardLike) => {
             if(boardlike) {
@@ -41,7 +40,7 @@ const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
             } else {
                 await BoardLike.create({
                     user_pk: user.pk,
-                    board_pk: board_pk,
+                    board_pk,
                 });
 
                 await BoardLike.update(

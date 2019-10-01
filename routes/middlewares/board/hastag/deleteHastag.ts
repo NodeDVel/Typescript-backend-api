@@ -5,19 +5,19 @@ import Hastag from '../../../../database/models/hastag.model';
 import User from '../../../../database/models/user.model';
 
 const deleteHastagLog = async (req: Request, res: Response, next: NextFunction) => {
-    const board: Board = res.locals.board;
     const user: User = res.locals.user;
-    const hastag_name = req.query.name;
+    const board_pk = req.query.board_pk;
+    const hastag_name: string = req.query.name;
 
     const hastag: Hastag = await Hastag.destroy({
         where: {
             user_pk: user.pk,
-            board_pk: board.pk,
+            board_pk,
             name: hastag_name,
         },
     });
 
-    if(board) {
+    if(hastag) {
         res.status(412).json({
             result: {
                 SUCCESS: false,

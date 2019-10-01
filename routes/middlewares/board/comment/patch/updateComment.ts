@@ -7,15 +7,15 @@ import User from '../../../../../database/models/user.model';
 const updateComment = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;
     const board_pk = req.query.board_pk;
-    const { content } = req.body;
+    const content: string | undefined = req.body;
 
     try {
+        // board.findOne()
 
-        //board.findOne()
         const comment: BoardComment = await BoardComment.update(
             {   
-                content: content,
                 author: user.name,
+                content,
             }, 
             {
                 where: {

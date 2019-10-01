@@ -6,14 +6,14 @@ import BoardLikeLog from '../../../../database/models/boardLikeLog.model';
 import User from '../../../../database/models/user.model';
 
 const likeBoardLog = async (req: Request, res: Response, next: NextFunction) => {
-    const like_pk = req.query.like_pk; 
     const user: User = res.locals.user;
-    const board_pk = req.query.board_pk;
+    const board_pk: number = req.query.board_pk;
+    const like_pk: number = req.query.like_pk; 
     
     const boardLike: BoardLike = await BoardLike.findOne({
         where: {
             pk: user.pk,
-            board_pk: board_pk,
+            board_pk,
             like: true,
         },
     });
@@ -33,11 +33,14 @@ const likeBoardLog = async (req: Request, res: Response, next: NextFunction) => 
             },
         });
     } else {
-        //board findOne()
+        
+        const board: Board = await Board.findOne({
+
+        });
         const LikeLog: BoardLikeLog = await BoardLikeLog.create({
             user_pk: user.pk,
-            board_pk: board_pk,
-            like_pk: like_pk,
+            board_pk,
+            like_pk,
             user_name: user.name,
             board_title: board.title,
             board_content: board.content,

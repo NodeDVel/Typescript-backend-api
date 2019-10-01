@@ -7,16 +7,16 @@ import User from '../../../../../database/models/user.model';
 
 const deleteBoardCommentLike = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;
-    const board: Board = res.locals.board;
-    const boardComment: BoardComment = res.locals.comment;
+    const board_pk = req.query.board_pk
+    const comment_pk = req.query.comment_pk;
 
-    //board.findOne()
+    // board.findOne()
     
     const commentLike = await BoardCommentLike.findOne({
         where: {
             user_pk: user.pk,
-            board_pk: board.pk,
-            comment_pk: boardComment.pk,
+            board_pk,
+            comment_pk,
         },
     });
 
@@ -24,7 +24,7 @@ const deleteBoardCommentLike = async (req: Request, res: Response, next: NextFun
         BoardCommentLike.destroy({
             where: {
                 pk: user.pk,
-                comment_pk: boardComment.pk,
+                comment_pk,
             },
         });
 

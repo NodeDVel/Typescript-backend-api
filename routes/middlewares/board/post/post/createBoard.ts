@@ -12,8 +12,8 @@ const createBoard = async (req: Request, res: Response, next: NextFunction) => {
         const board: Board = await Board.create({
             user_pk: user.pk,
             author: user.name,
-            title: title,
-            content: content,
+            title,
+            content,
         });
 
         if(!board) {

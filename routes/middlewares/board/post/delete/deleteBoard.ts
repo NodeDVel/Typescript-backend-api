@@ -11,7 +11,7 @@ const deleteBoard = async (req: Request, res: Response, next: NextFunction) => {
         const board: Board = await Board.findOne({
             where: {
                 pk: user.pk,
-                board_pk: board_pk,
+                board_pk,
             },
         });
 

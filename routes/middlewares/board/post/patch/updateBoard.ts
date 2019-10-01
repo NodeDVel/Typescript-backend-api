@@ -12,8 +12,8 @@ const updateBoard = async (req:  Request, res: Response, next: NextFunction) => 
     try {
         await Board.update(
             {
-                title: title,
-                content: content,
+                title,
+                content,
                 author: user.name,
             },
             {
