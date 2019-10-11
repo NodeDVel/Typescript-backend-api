@@ -15,7 +15,7 @@ const issueToken = async (req: Request, res: Response, next: NextFunction) => {
         },
         
         data: {
-            token: token,
+            token,
             user: {
                 userPk: user.pk,
                 userName: user.name,

@@ -21,14 +21,14 @@ const deleteHastagLog = async (req: Request, res: Response, next: NextFunction) 
         res.status(412).json({
             result: {
                 SUCCESS: false,
-                message: 'DB Error', // 정상적으로 삭제되지 않았을 시에 db 에러
+                message: 'DB Error', // 정상적으로 삭제되지 않았을 시에 DB 에러
             },
         });
     } else {
         res.status(200).json({
             result: {
                 SUCCESS: true,
-                message: '정상적으로 삭제되었습니다.',
+                message: '정상적으로 삭제되었습니다.', // 없다는 소리는 삭제되었다는 소리기 때문에 오류가 아닌 정상
             },
         });
         next();

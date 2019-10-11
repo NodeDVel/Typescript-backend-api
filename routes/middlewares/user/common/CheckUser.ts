@@ -3,14 +3,12 @@ import { NextFunction, Request, Response } from 'express';
 import User from '../../../../database/models/user.model';
 
 const CheckUser = async (req: Request, res: Response, next: NextFunction) => {
-    
+    const { id } = req.body;
     try {
-        const { id } = req.body;
-
-        await User.findOne({
-            where: {
-                id,
-            },
+      await User.findOne({
+          where: {
+              id,
+          },
         }).then((user: User) => {
             switch(req.path) {
                 case '/register':

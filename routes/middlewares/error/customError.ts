@@ -1,5 +1,5 @@
-import Errors from './errors';
 import { ErrorNames } from '@Lib/types';
+import Errors from './errors';
 
 class CustomError {
   constructor({ name, message }: { name: keyof typeof ErrorNames; message?: string }) {

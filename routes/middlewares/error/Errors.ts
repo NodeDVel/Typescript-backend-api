@@ -80,4 +80,3 @@ const Errors: { [key in ErrorNames]: IError } = {
   };
   
 export default Errors;
-  

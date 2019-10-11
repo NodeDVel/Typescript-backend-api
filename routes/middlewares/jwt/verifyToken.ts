@@ -8,10 +8,10 @@ const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
     const tokenSecret = process.env.TOKEN_SECRET;
 
     try {
-        const userPk = await jwt.verify(token as string, tokenSecret);
+        const user_pk = await jwt.verify(token as string, tokenSecret);
         const user = await User.findOne({
             where: {
-                pk: userPk,
+                pk: user_pk,
             },
         });
 
