@@ -24,7 +24,7 @@ const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
               }, 
             }).then(async (boardlike: BoardLike) => {
                 if(boardlike) {
-                    await BoardLike.destroy({
+                    const ConfirmLike = await BoardLike.destroy({
                         where: {
                             pk: user.pk,
                         },
@@ -45,7 +45,7 @@ const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
                         },
                     });
                 } else {
-                    await BoardLike.create({
+                    const CancelLike = await BoardLike.create({
                         user_pk: user.pk,
                         board_pk,
                     });

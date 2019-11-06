@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 
-import Board from '../../../../../database/models/board.model';
 import Hastag from '../../../../../database/models/hastag.model';
 import User from '../../../../../database/models/user.model';
 

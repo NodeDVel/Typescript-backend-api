@@ -1,4 +1,4 @@
-import { NextFunction,  Request, Response}from 'express';
+import { NextFunction,  Request, Response } from 'express';
 
 import Board from '../../../../database/models/board.model';
 import BoardLike from '../../../../database/models/boardlike.model';

@@ -22,10 +22,18 @@ const getBoard = async (req: Request, res: Response, next: NextFunction) => {
 
       if (board) {
         res.json({
+          success: true,
           data: {
-            // board에 대한 데이터 전송
+            board: {
+              board,
+            },
           },
         });
+      } else {
+        res.status(412).json({
+          success: false,
+          message: '잘못된 요청데이터입니다.',
+        })
       }
     } catch (error) {
       console.log(error);

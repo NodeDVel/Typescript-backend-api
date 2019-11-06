@@ -21,6 +21,7 @@ const postHastag = async (req: Request, res: Response, next: NextFunction) => {
                         },
                     });
                 } else {
+                    console.log('hastag create OK!');
                     next();
                 }
             });

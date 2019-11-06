@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
+import CustomError from '@Middleware/error/customError';
 import Board from '@Model/board.model';
 import User from '@Model/user.model';
 
@@ -9,27 +10,34 @@ const createBoard = async (req: Request, res: Response, next: NextFunction) => {
     const content: string | undefined = req.body.content;
 
     try {
-        const board: Board = await Board.create({
-            user_pk: user.pk,
-            author: user.name,
-            title,
-            content,
-        });
-
-        if(!board) {
-            res.status(404).json({
-                result: {
-                    SUCCESS: false,
-                    message: 'Not created Board.',
-                },
+        if (user.name) {
+            const board: Board = await Board.create({
+                user_pk: user.pk,
+                author: user.name,
+                title,
+                content,
             });
+    
+            if(!board) {
+                res.status(404).json({
+                    result: {
+                        SUCCESS: false,
+                        message: 'Not created Board.',
+                    },
+                });
+            } else {
+                res.status(200).json({
+                    result: {
+                        SUCCESS: true,
+                        message: 'Create Board Ok',
+                    },
+                });
+            }
         } else {
-            res.status(200).json({
-                result: {
-                    SUCCESS: true,
-                    message: 'Create Board Ok',
-                },
-            });
+            res.status(412).json({
+                success: false,
+                message: '작성자 이름을 적어주세요',
+            })
         }
         
     } catch(err) {
