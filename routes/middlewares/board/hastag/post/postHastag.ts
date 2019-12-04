@@ -8,7 +8,7 @@ const postHastag = async (req: Request, res: Response, next: NextFunction) => {
     const board_pk = req.body.board_pk;
 
     if(hastag_name){
-        for(let i = 0; i < hastag_name; i++) {
+        for(let i = 0; i < hastag_name[i]; i++) {
             await Hastag.create({
                 board_pk,
                 title: hastag_name[i],
@@ -40,6 +40,6 @@ const postHastag = async (req: Request, res: Response, next: NextFunction) => {
             message: 'hastag 생성되었습니다'
         },
     });
-} 
+}
 
 export default postHastag;

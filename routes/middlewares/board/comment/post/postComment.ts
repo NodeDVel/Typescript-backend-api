@@ -1,18 +1,20 @@
 import { NextFunction, Request, Response } from 'express';
 
+import { PostCommentParams } from './_validation';
+
 import Board from '../../../../../database/models/board.model';
 import BoardComment from '../../../../../database/models/boardComment.model';
 import User from '../../../../../database/models/user.model';
 
 const createComment = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;
-    const board_pk: number = req.body.board_pk;
+    const { board_pk }: PostCommentParams['body'] = req.body;
     const comment: string | undefined = req.body.comment;
 
     try {
         const board: Board | undefined = await Board.findOne({
           where: {
-            board_pk,
+            pk: board_pk,
           },
         });
 
@@ -20,9 +22,9 @@ const createComment = async (req: Request, res: Response, next: NextFunction) =>
             const boardcomment: BoardComment = await BoardComment.create(
               {
                 board_pk,
+                comment,
                 user_pk: user.pk,
                 author: user.name,
-                comment,
               });
     
             if(!boardcomment) {

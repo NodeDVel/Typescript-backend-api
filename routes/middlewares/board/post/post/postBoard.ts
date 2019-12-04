@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 
-import CustomError from '@Middleware/error/customError';
 import Board from '@Model/board.model';
 import User from '@Model/user.model';
 
