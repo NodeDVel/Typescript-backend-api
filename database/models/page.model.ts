@@ -5,13 +5,21 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   PrimaryKey,
+  Table,
 } from 'sequelize-typescript';
 
-import Board from './board.model';
+import PageBoard from './pageBoard.model';
+import PageLike from './pageLike.model';
 import User from './user.model';
-export default class BoardComment extends Model<BoardComment> {
+
+@Table({
+  timestamps: false,
+})
+
+export default class Page extends Model<Page> {
   @AutoIncrement
   @PrimaryKey
   @AllowNull(false)
@@ -21,27 +29,28 @@ export default class BoardComment extends Model<BoardComment> {
   @ForeignKey(() => User)
   @AllowNull(false)
   @Column(DataType.UUID)
-  public userPk: string;
-  
-  @ForeignKey(() => Board)
-  @Column(DataType.INTEGER)
-  public boardPk: number;
-  
+  public user_pk: User;
+
   @AllowNull(false)
   @Column(DataType.STRING)
-  public author: string;
-  
+  public user_name: string;
+
   @AllowNull(false)
-  @Column(DataType.TEXT)
+  @Column(DataType.STRING)
+  public pageName: string;
+
+  @AllowNull(false)
+  @Column(DataType.STRING)
   public content: string;
-  
+
   @BelongsTo(() => User, {
     onDelete: 'CASCADE',
   })
   public user: User;
-  
-  @BelongsTo(() => Board, {
-    onDelete: 'CASCADE',
-  })
-  public board: Board;
+
+  @HasMany(() => PageBoard)
+  public pageBoard: PageBoard[];
+
+  @HasMany(() => PageLike)
+  public pageLike: PageLike[];
 }

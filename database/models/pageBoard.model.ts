@@ -7,11 +7,17 @@ import {
   ForeignKey,
   Model,
   PrimaryKey,
+  Table,
 } from 'sequelize-typescript';
 
-import Board from './board.model';
+import PageLike from './pageLike.model';
 import User from './user.model';
-export default class BoardComment extends Model<BoardComment> {
+    
+@Table({
+  timestamps: false,
+})
+
+export default class PageBoard extends Model<PageBoard> {
   @AutoIncrement
   @PrimaryKey
   @AllowNull(false)
@@ -21,27 +27,28 @@ export default class BoardComment extends Model<BoardComment> {
   @ForeignKey(() => User)
   @AllowNull(false)
   @Column(DataType.UUID)
-  public userPk: string;
-  
-  @ForeignKey(() => Board)
+  public user_pk: string;
+
+  @ForeignKey(() => PageBoard)
+  @AllowNull(false)
   @Column(DataType.INTEGER)
-  public boardPk: number;
-  
+  public page_pk: number;
+
   @AllowNull(false)
   @Column(DataType.STRING)
-  public author: string;
-  
+  public user_name: string;
+
   @AllowNull(false)
   @Column(DataType.TEXT)
   public content: string;
-  
+
   @BelongsTo(() => User, {
     onDelete: 'CASCADE',
   })
   public user: User;
   
-  @BelongsTo(() => Board, {
+  @BelongsTo(() => PageLike, {
     onDelete: 'CASCADE',
   })
-  public board: Board;
+  public pageLike: PageLike;
 }
