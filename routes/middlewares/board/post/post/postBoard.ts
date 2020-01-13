@@ -16,6 +16,18 @@ const createBoard = async (req: Request, res: Response, next: NextFunction) => {
                 title,
                 content,
             });
+
+            res.status(200).json({
+              success: true,
+              data: {
+                board: {
+                  pk: board.pk,
+                  author: user.name,
+                  title: board.title,
+                  content: board.content,
+                },
+              },
+            })
     
             if(!board) {
                 res.status(404).json({

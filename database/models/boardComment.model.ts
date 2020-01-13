@@ -21,7 +21,7 @@ export default class BoardComment extends Model<BoardComment> {
   @ForeignKey(() => User)
   @AllowNull(false)
   @Column(DataType.UUID)
-  public userPk: string;
+  public user_pk: string;
   
   @ForeignKey(() => Board)
   @Column(DataType.INTEGER)
@@ -33,7 +33,7 @@ export default class BoardComment extends Model<BoardComment> {
   
   @AllowNull(false)
   @Column(DataType.TEXT)
-  public content: string;
+  public comment: string;
   
   @BelongsTo(() => User, {
     onDelete: 'CASCADE',

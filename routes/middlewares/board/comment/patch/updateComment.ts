@@ -6,7 +6,7 @@ import User from '../../../../../database/models/user.model';
 
 const updateComment = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;
-    const board_pk = req.query.board_pk;
+    const board_pk: Board['pk'] = req.query.board_pk;
     const content: string | undefined = req.body;
 
     try {

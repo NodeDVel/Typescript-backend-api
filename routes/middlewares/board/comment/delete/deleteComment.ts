@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 
 import Board from '../../../../../database/models/board.model';
-import Comment from '../../../../../database/models/boardComment.model';
+import BoardComment from '../../../../../database/models/boardComment.model';
 import User from '../../../../../database/models/user.model';
 
 const deleteComment = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;
-    const board_pk = req.query.board_pk;
-    const comment_pk = req.query.comment_pk;
+    const board_pk: Board['pk'] = req.query.board_pk;
+    const comment_pk: BoardComment['pk'] = req.query.comment_pk;
 
     try {
         const board: Board = await Board.findOne({
@@ -16,7 +16,7 @@ const deleteComment = async (req: Request, res: Response, next: NextFunction) =>
             },
             include: [
                 {
-                    model: Comment,
+                    model: BoardComment,
                     where: {
                         pk: comment_pk,
                         user_pk: user.pk,
@@ -26,7 +26,7 @@ const deleteComment = async (req: Request, res: Response, next: NextFunction) =>
         });
 
         if(board) {
-            await Comment.destroy({
+            await BoardComment.destroy({
                 where: {
                     pk: comment_pk,
                 },

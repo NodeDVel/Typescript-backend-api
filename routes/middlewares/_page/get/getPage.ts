@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import Page from '@Model/page.model';
 
 const getPage = async (req: Request, res: Response, next: NextFunction) => {
-  const page_pk: number = req.query.page_pk;
+  const page_pk: Page['pk'] = req.query.page_pk;
   const limit: number | undefined = 10;
   const page_num: number = req.query.page_num;
 

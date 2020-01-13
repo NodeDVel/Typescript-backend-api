@@ -8,13 +8,12 @@ import User from '@Model/user.model';
 
 const getComment = async (req: Request, res: Response, next: NextFunction) => {
   const user: User = res.locals.user;
-  const board_pk = req.query.board_pk;
-  const comment_pk = req.query.comment_pk;
+  const board_pk: Board['pk'] = req.query.board_pk;
+  const comment_pk: Comment['pk'] = req.query.comment_pk;
 
   const result: Board | null = await Board.findOne({
     where: {
-      pk: user.pk,
-      board_pk,
+      pk: board_pk,
     },
   });
 

@@ -5,7 +5,7 @@ import CustomError from '@Middleware/error/customError';
 import Board from '@Model/board.model';
 
 const getBoard = async (req: Request, res: Response, next: NextFunction) => {
-    const board_pk: number = req.query.board_pk;
+    const board_pk: Board['pk'] = req.query.board_pk;
     const limit: number | undefined = 10;
     const page: number = req.query.page;
 

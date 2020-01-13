@@ -5,7 +5,7 @@ import User from '@Model/user.model';
 
 const updateBoard = async (req:  Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;
-    const board_pk = req.query.board_pk
+    const board_pk: Board['pk'] = req.query.board_pk
     const title: string | undefined = req.body;
     const content: string | undefined = req.body;
 
@@ -25,7 +25,7 @@ const updateBoard = async (req:  Request, res: Response, next: NextFunction) => 
                 },
                 {
                 where: {
-                    pk: board_pk,
+                   pk: board_pk,
                 },
             }).then((board: Board) => {
                 if(!board) {

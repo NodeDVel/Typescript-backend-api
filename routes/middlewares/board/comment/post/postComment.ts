@@ -19,15 +19,24 @@ const createComment = async (req: Request, res: Response, next: NextFunction) =>
         });
 
         if (board) {
-            const boardcomment: BoardComment = await BoardComment.create(
+            const boardComment: BoardComment = await BoardComment.create(
               {
                 board_pk,
                 comment,
                 user_pk: user.pk,
                 author: user.name,
               });
+
+              res.status(200).json({
+                success: true,
+                data: {
+                  pk: boardComment.pk,
+                  author: user.name,
+                  comment: boardComment.comment,
+                },
+              });
     
-            if(!boardcomment) {
+            if(!boardComment) {
                 res.status(500).json({
                   result: {
                       SUCCESS: true,

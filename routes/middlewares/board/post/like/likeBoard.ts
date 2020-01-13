@@ -6,7 +6,7 @@ import User from '@Model/user.model';
 
 const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
     const user: User = res.locals.user;
-    const board_pk: number | undefined = req.query.board_pk;
+    const board_pk: Board['pk'] = req.query.board_pk;
 
     try {
         const board: Board | undefined = await Board.findOne(

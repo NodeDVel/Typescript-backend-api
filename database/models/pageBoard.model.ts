@@ -39,6 +39,10 @@ export default class PageBoard extends Model<PageBoard> {
   public user_name: string;
 
   @AllowNull(false)
+  @Column(DataType.STRING)
+  public title: string;
+  
+  @AllowNull(false)
   @Column(DataType.TEXT)
   public content: string;
 

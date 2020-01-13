@@ -5,7 +5,7 @@ import Hastag from '../../../../../database/models/hastag.model';
 
 const postHastag = async (req: Request, res: Response, next: NextFunction) => {
     const hastag_name: string | number | undefined = req.body;
-    const board_pk = req.body.board_pk;
+    const board_pk: Board['pk'] = req.body.board_pk;
 
     if(hastag_name){
         for(let i = 0; i < hastag_name[i]; i++) {
