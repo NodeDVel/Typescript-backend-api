@@ -7,18 +7,9 @@ import CompanyRecruit from '@Model/companyRecurit';
 import Hastag from '@Model/hastag.model';
 import User from '@Model/user.model';
 
-// tslint:disable-next-line: no-empty-interface
-// tslint:disable-next-line: interface-name
-// tslint:disable-next-line: class-name
-interface postCompanyRequest {
-  pk: Hastag['pk'];
-}
-
 const postCompany = async (req: Request, res: Response, next: NextFunction) => {
-  const user: User = res.locals.user
-  const hastag_pk: postCompanyRequest['pk'] = req.body.hastag_pk;
+  const user: User = res.locals.user;
   const name: string = req.body.name;
-  const hastag_name: string = req.body.hastag_name;
   const information: string = req.body.information;
   const pay: number = req.body.pay;
   const area: number = req.body.area;
