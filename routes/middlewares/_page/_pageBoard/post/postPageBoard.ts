@@ -4,9 +4,11 @@ import Page from '@Model/page.model';
 import PageBoard from '@Model/pageBoard.model';
 import User from '@Model/user.model';
 
+import { postPageBoardRequest } from './_validation';
+
 const postPageBoard = async (req: Request, res: Response, next: NextFunction) => {
   const user: User = res.locals.user;
-  const page_pk: Page['pk'] = req.body.page_pk;
+  const page_pk: postPageBoardRequest['body'] = req.body.page_pk;
   const title: string | undefined = req.body;
   const content: string | undefined = req.body;
 

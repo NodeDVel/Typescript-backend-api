@@ -12,15 +12,15 @@ const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
         const board: Board | undefined = await Board.findOne(
           {
             where: {
-                board_pk,
+              board_pk,
             },
           });
 
         if (board) {
           await BoardLike.findOne({
               where: {
-                  user_pk: user.pk,
-                  board_pk,
+                user_pk: user.pk,
+                board_pk,
               }, 
             }).then(async (boardlike: BoardLike) => {
                 if(boardlike) {

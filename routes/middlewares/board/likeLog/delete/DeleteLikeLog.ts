@@ -7,10 +7,11 @@ const likeLogDelete = async (req: Request, res: Response, next: NextFunction) =>
   const like_pk = req.query.like_pk;
 
   const likeLog: BoardLikeLog | null = await BoardLikeLog.findOne({
-      where: {
-          board_pk,
-          like_pk,
-      },
+    where: {
+      pk: board_pk,
+      like_pk,
+      like: true,
+    },
   });
 
   if(likeLog || (likeLog.like === !typeof(Boolean) || likeLog.like === true)) {

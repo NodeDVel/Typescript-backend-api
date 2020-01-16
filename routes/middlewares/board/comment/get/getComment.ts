@@ -1,15 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 
-import CustomError from '@Middleware/error/customError';
-
 import Board from '@Model/board.model';
-import Comment from '@Model/boardComment.model';
-import User from '@Model/user.model';
+import BoardComment from '@Model/boardComment.model';
+
+import { getCommnetRequest } from './_validation';
 
 const getComment = async (req: Request, res: Response, next: NextFunction) => {
-  const user: User = res.locals.user;
-  const board_pk: Board['pk'] = req.query.board_pk;
-  const comment_pk: Comment['pk'] = req.query.comment_pk;
+  const board_pk: getCommnetRequest['query'] = req.query.board_pk;
 
   const result: Board | null = await Board.findOne({
     where: {
@@ -18,9 +15,8 @@ const getComment = async (req: Request, res: Response, next: NextFunction) => {
   });
 
   if(result) {
-    const findComment: Comment | null = await Comment.findOne({
+    const findComment: BoardComment | null = await BoardComment.findOne({
       where: {
-        pk: comment_pk,
         board_pk,
       },
     });
