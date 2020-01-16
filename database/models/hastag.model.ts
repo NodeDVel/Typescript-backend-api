@@ -11,6 +11,7 @@ import {
 } from 'sequelize-typescript';
 
 import Board from './board.model';
+import CompanyRecruit from './companyRecurit';
 import User from './user.model';
 
 @Table({
@@ -46,4 +47,9 @@ export default class Hastag extends Model<Hastag> {
         onDelete: 'CASCADE',
     })
     public board: Board;
+
+    @BelongsTo(() => CompanyRecruit, {
+      onDelete: 'CASCADE',
+    })
+    public companyRecruit: CompanyRecruit;
 }

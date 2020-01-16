@@ -55,7 +55,6 @@ export default class BoardLikeLog extends Model<BoardLikeLog> {
   @Column(DataType.STRING)
   public author: string;
 
-
   @AllowNull(false)
   @Column(DataType.BOOLEAN)
   public like: boolean;

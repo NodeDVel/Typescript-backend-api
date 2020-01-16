@@ -25,7 +25,7 @@ export default class BoardComment extends Model<BoardComment> {
   
   @ForeignKey(() => Board)
   @Column(DataType.INTEGER)
-  public boardPk: number;
+  public board_pk: number;
   
   @AllowNull(false)
   @Column(DataType.STRING)

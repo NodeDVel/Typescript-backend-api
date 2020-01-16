@@ -11,6 +11,7 @@ import {
 import Board from './board.model';
 import BoardCommentLike from './boardCommentLike.model';
 import BoardLike from './boardlike.model';
+import CompanyRecruit from './companyRecurit';
 import Hastag from './hastag.model';
 
 @Table({
@@ -45,4 +46,7 @@ export default class User extends Model<User> {
 
     @HasMany(() => Hastag)
     public hastag:  Hastag[];
+
+    @HasMany(() => CompanyRecruit)
+    public companyRecurit: CompanyRecruit[];
 }
