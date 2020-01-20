@@ -1,40 +1,30 @@
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 
-import User from '../../../database/models/user.model';
+import CustomError from '@Middleware/error/customError';
+
+import User from '@Model/user.model';
 
 const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
-    const { token } = req.headers;
-    const tokenSecret = process.env.TOKEN_SECRET;
+    const token: string | string[] = req.headers.access_token;
+    const secretKey: string = process.env.ACCESS_TOKEN_SECRET;
 
     try {
-        const user_pk = await jwt.verify(token as string, tokenSecret);
-        const user = await User.findOne({
-            where: {
-                pk: user_pk,
-            },
-        });
+    const decodedToken = await jwt.verify(token as string, secretKey);
 
-        if(!user) {
-            res.status(400).json({
-                result: {
-                    SUCCESS: false,
-                    message: 'user data error',
-                }
-            })
-        } else {
-            res.locals.user = user;
-            next();
+    res.locals.user = decodedToken;
+
+    next();
+    } catch (error) {
+        switch (error.name) {
+            case 'TokenExpiredError':
+                next(new CustomError({ name: 'Token_Expired' }));
+                break;
+            case 'JsonWebTokenError':
+                next(new CustomError({ name: 'Wrong_Data' }));
+            default:
+                next(new CustomError({ name: 'Unhandled_Error' }));
         }
-
-    } catch(err) {
-        console.error(err);
-        res.status(500).json({
-            result: {
-                SUCCESS: false,
-                message: 'Server Error',
-            }
-        });
     }
 }
 

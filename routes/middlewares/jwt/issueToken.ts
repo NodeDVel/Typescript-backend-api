@@ -1,27 +1,29 @@
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 
-import User from '../../../database/models/user.model';
+import User from '@Model/user.model';
 
-const issueToken = async (req: Request, res: Response, next: NextFunction) => {
-    const user: User = res.locals.user;
-    const tokenSecret = process.env.TOKEN_SECRET;
-    const token = await jwt.sign({ pk: user.pk }, tokenSecret);
+const issueToken = (req: Request, res: Response, next: NextFunction) => {
+  const user: User = res.locals.user;
+  const secretKey: string = process.env.ACCESS_TOKEN_SECRET;
 
-    res.status(200).json({
-        result: {
-            SUCCESS: true,
-            message: 'login OK',
-        },
-        
-        data: {
-            token,
-            user: {
-                userPk: user.pk,
-                userName: user.name,
-            }
-        }
-    })
+  const accessToken = jwt.sign({
+    pk: user.pk,
+  },
+  secretKey,
+  {
+    expiresIn: '1h',
+  });
+
+  res.json({
+    success: true,
+    data: {
+      user_id: user.id,
+      user_name: user.name,
+      admin: user.admin,
+      access_token: accessToken,
+    },
+  });
 }
 
 export default issueToken;
