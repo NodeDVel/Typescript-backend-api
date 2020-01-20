@@ -43,6 +43,10 @@ export default class Page extends Model<Page> {
   @Column(DataType.STRING)
   public content: string;
 
+  @AllowNull(false)
+  @Column(DataType.STRING)
+  public introduction: string;
+
   @BelongsTo(() => User, {
     onDelete: 'CASCADE',
   })

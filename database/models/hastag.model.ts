@@ -11,7 +11,7 @@ import {
 } from 'sequelize-typescript';
 
 import Board from './board.model';
-import CompanyRecruit from './companyRecurit';
+import CompanyRecruit from './companyRecurit.model';
 import User from './user.model';
 
 @Table({

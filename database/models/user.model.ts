@@ -11,7 +11,7 @@ import {
 import Board from './board.model';
 import BoardCommentLike from './boardCommentLike.model';
 import BoardLike from './boardlike.model';
-import CompanyRecruit from './companyRecurit';
+import CompanyRecruit from './companyRecurit.model';
 import Hastag from './hastag.model';
 
 @Table({
@@ -34,6 +34,10 @@ export default class User extends Model<User> {
     @AllowNull(false)
     @Column(DataType.STRING)
     public name: string;
+
+    @AllowNull(false)
+    @Column(DataType.BOOLEAN)
+    public admin: boolean;
 
     @HasMany(() => Board)
     public board: Board[];

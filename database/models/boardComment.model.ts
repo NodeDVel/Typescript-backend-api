@@ -11,6 +11,7 @@ import {
 
 import Board from './board.model';
 import User from './user.model';
+
 export default class BoardComment extends Model<BoardComment> {
   @AutoIncrement
   @PrimaryKey
