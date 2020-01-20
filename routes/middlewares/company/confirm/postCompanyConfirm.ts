@@ -6,7 +6,7 @@ import { sequelize } from '@Database/index';
 
 import CustomError from '@Middleware/error/customError';
 
-import CompanyRecurit from '@Model/companyRecurit';
+import CompanyRecurit from '@Model/companyRecurit.model';
 import User from '@Model/user.model';
 
 import { PostCompanyConfirmRequest } from './_validation';

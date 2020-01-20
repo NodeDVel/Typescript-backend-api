@@ -8,7 +8,7 @@ import { sequelize } from '@Database/index';
 
 import { postCompanyCancelRequest } from './_validation';
 
-import CompanyRecruit from '@Model/companyRecurit';
+import CompanyRecruit from '@Model/companyRecurit.model';
 import User from '@Model/user.model';
 
 const postCompanyCancel = async (req: Request, res: Response, next: NextFunction) => {

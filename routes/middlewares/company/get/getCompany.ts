@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import CustomError from '@Middleware/error/customError';
 
-import CompanyRecruit from '@Model/companyRecurit';
+import CompanyRecruit from '@Model/companyRecurit.model';
 import Hastag from '@Model/hastag.model';
 import User from '@Model/user.model';
 

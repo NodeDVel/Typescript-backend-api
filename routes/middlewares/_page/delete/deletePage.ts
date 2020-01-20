@@ -15,16 +15,16 @@ const deletePage = async (req: Request, res: Response, next: NextFunction) => {
       },
       include: [
         {
-        model: PageBoard,
-        where: {
-          pk: page_pk,
-          user_pk: user.pk,
-        },
+          model: PageBoard,
+          where: {
+            pk: page_pk,
+            user_pk: user.pk,
+          },
         }
       ],
     });
 
-    if(page) {
+    if (page) {
       await Page.destroy({
         where: {
           pk: page_pk,
@@ -41,12 +41,12 @@ const deletePage = async (req: Request, res: Response, next: NextFunction) => {
         message: 'DB Error',
       })
     }
-  } catch(err) {
-      console.log(err)
-      res.status(500).json({
-        success: false,
-        message: 'DB error',
-      });
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({
+      success: false,
+      message: 'DB error',
+    });
   }
 }
 

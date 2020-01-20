@@ -6,8 +6,10 @@ import User from '@Model/user.model';
 const updatePage = async (req: Request, res: Response, next: NextFunction) => {
   const user: User = res.locals.user;
   const page_pk: Page['pk'] = req.query.page_pk;
-  const pageName: string | undefined = req.body;
+  const pageName: string = req.body;
   const content: string | undefined = req.body;
+  const introduction: string | undefined = req.body;
+
 
   try {
     const updatePage: Page | undefined = await Page.findOne({
@@ -21,6 +23,7 @@ const updatePage = async (req: Request, res: Response, next: NextFunction) => {
           {
             pageName,
             content,
+            introduction,
             user_name: user.name,
           },
           {
@@ -34,9 +37,11 @@ const updatePage = async (req: Request, res: Response, next: NextFunction) => {
                 message: '수정된 페이지가 없습니다.',
               });
             } else {
-              res.status(200).json({
+              res.json({
                 success: true,
-                message: '페이지가 정상적으로 수정되었습니다.',
+                data: {
+                  page,
+                },
               });
             }
           });

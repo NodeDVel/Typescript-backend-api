@@ -6,35 +6,32 @@ import BoardCommentLike from '../../../../../database/models/boardCommentLike.mo
 import User from '../../../../../database/models/user.model';
 
 const deleteBoardCommentLike = async (req: Request, res: Response, next: NextFunction) => {
-    const user: User = res.locals.user;
-    const board_pk = req.query.board_pk
-    const comment_pk = req.query.comment_pk;
-    const like_pk = req.query.like_pk;
+  const user: User = res.locals.user;
+  const board_pk = req.query.board_pk
+  const comment_pk = req.query.comment_pk;
+  const like_pk = req.query.like_pk;
 
-    const commentLike: BoardCommentLike | undefined = await BoardCommentLike.findOne({
-        where: {
-            user_pk: user.pk,
-            board_pk,
-            comment_pk,
-            like_pk,
-        },
+  const commentLike: BoardCommentLike | undefined = await BoardCommentLike.findOne({
+    where: {
+      user_pk: user.pk,
+      board_pk,
+      comment_pk,
+      like_pk,
+    },
+  });
+
+  if (commentLike) {
+    BoardCommentLike.destroy({
+      where: {
+        pk: user.pk,
+        comment_pk,
+      },
     });
 
-    if(commentLike) {
-        BoardCommentLike.destroy({
-            where: {
-                pk: user.pk,
-                comment_pk,
-            },
-        });
-
-        res.status(200).json({
-            result: {
-                SUCCESS: true,
-                message: '댓글 좋아요 취소',
-            },
-        })
-    }
+    res.status(200).json({
+      success: true,
+    })
+  }
 }
 
 export default deleteBoardCommentLike;

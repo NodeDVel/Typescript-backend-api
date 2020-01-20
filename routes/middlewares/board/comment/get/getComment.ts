@@ -5,6 +5,8 @@ import BoardComment from '@Model/boardComment.model';
 
 import { getCommnetRequest } from './_validation';
 
+import CustomError from '@Middleware/error/customError';
+
 const getComment = async (req: Request, res: Response, next: NextFunction) => {
   const board_pk: getCommnetRequest['query'] = req.query.board_pk;
 
@@ -29,16 +31,10 @@ const getComment = async (req: Request, res: Response, next: NextFunction) => {
         },
       });
     } else {
-      res.status(512).json({
-        success: false,
-        message: '데이터베이스 오류',
-      });
+      next(new CustomError({ name: 'Database_Error' }));
     }
   } else {
-    res.status(512).json({
-      success: false,
-      message: '데이터베이스 오류',
-    })
+    next(new CustomError({ name: 'Database_Error' }));
   }
 }
 

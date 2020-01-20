@@ -7,12 +7,12 @@ import changepassword from '../middlewares/user/changePassword/changePassword';
 import CheckUser from '../middlewares/user/common/CheckUser';
 import passwordEncryption from '../middlewares/user/common/passwordEncryption';
 
+import loignReqCheck from '../middlewares/user/login/_validation';
 import login from '../middlewares/user/login/login';
-import loignReqCheck from '../middlewares/user/login/loginReqCheck';
 
 import issueToken from '../middlewares/jwt/issueToken';
+import registReqCheck from '../middlewares/user/register/_validation';
 import register from '../middlewares/user/register/register';
-import registReqCheck from '../middlewares/user/register/registerReqCheck';
 
 router.post('/change', changepassword);
 router.post('/register', CheckUser, register, registReqCheck, passwordEncryption);

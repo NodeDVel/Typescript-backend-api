@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 import CustomError from '@Middleware/error/customError';
 
-import CompanyRecruit from '@Model/companyRecurit';
+import CompanyRecruit from '@Model/companyRecurit.model';
 import User from '@Model/user.model';
 
 

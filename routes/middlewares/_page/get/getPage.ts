@@ -15,7 +15,7 @@ const getPage = async (req: Request, res: Response, next: NextFunction) => {
       limit,
       offset: page_num * limit,
       order: [['createAt', 'DESC']],
-      attributes: ['pk', 'user_pk', 'user_name', 'content', 'createAt']
+      attributes: ['pk', 'user_pk', 'user_name', 'content', 'introduction', 'createAt']
     })
 
     if(page) {
