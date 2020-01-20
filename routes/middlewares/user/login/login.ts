@@ -1,28 +1,26 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction ,Request, Response } from 'express';
+
+import User from '@Model/user.model';
+
+import CustomError from '@Middleware/error/customError';
 
 const login = (req: Request, res: Response, next: NextFunction) => {
-    const { user, temp } = res.locals;
+  const user: User = res.locals.user;
+  const password = res.locals.temp.password;
 
-    try {
-        if(user.password === temp.password) {
-            next();
-        } else {
-            res.status(400).json({
-                result: {
-                    SUCCESS: false,
-                    message: '비밀번호가 일치하지 않습니다',
-                }
-            });
-        }
-    } catch(err){
-        console.error(err);
-        res.status(500).json({
-            reusult: {
-                SUCCESS: false,
-                message: 'DB Error',
-            }
-        });
-    }
+  if(user.password !== password) {
+    next(new CustomError({ name: 'Wrong_Data' }));
+  }
+
+  res.locals.user = {
+    pk: user.pk,
+    id: user.id,
+    name: user.name,
+    admin: user.admin,
+    password,
+  };
+
+  next();
 }
 
 export default login;
