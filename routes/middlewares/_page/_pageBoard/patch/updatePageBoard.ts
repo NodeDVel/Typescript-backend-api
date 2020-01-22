@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 
 import PageBoard from '@Model/pageBoard.model';
 
+import CustomError from '@Middleware/error/customError';
+
 const updatePageBoard = async (req: Request, res: Response, next: NextFunction) => {
   const pageBoard_pk: PageBoard['pk'] = req.query.pageBoard_pk;
   const title: string = req.body.title;
@@ -18,10 +20,7 @@ const updatePageBoard = async (req: Request, res: Response, next: NextFunction) 
       });
 
       if(!pageBoard) {
-        res.status(412).json({
-          success: false,
-          message: '잘못된 요청데이터입니다.',
-        });
+        next(new CustomError({ name: 'Wrong_Data' }));
       } else {
         const [now_pageBoard]: [PageBoard, unknown]  = await PageBoard.update(
         {
@@ -34,7 +33,7 @@ const updatePageBoard = async (req: Request, res: Response, next: NextFunction) 
           },
         });
 
-        res.status(200).json({
+        res.json({
           success: true,
           data: {
             PageBoard: {

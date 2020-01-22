@@ -5,6 +5,8 @@ import { getPageBoardRequest } from './_validation';
 import Page from '@Model/page.model';
 import PageBoard from '@Model/pageBoard.model';
 
+import CustomError from '@Middleware/error/customError';
+
 const getPostBoard = async (req: Request, res: Response, next: NextFunction) => {
   const page_pk: getPageBoardRequest['query'] = req.query.page_pk;
   const pageBoard_pk: getPageBoardRequest['query'] = req.query.pageBoard_pk;
@@ -23,7 +25,7 @@ const getPostBoard = async (req: Request, res: Response, next: NextFunction) => 
         },
       });
 
-      res.status(200).json({
+      res.json({
         success: true,
         data: {
           PageBoard: {
@@ -31,13 +33,11 @@ const getPostBoard = async (req: Request, res: Response, next: NextFunction) => 
           },
         },
       });
+
     }
   } catch(err) {
     console.log(err);
-    res.status(500).json({
-      success: false,
-      message: 'DB Error',
-    })
+    next(new CustomError({ name: 'Database_Error' }));
   }
 
 }
