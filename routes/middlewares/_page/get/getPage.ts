@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 
 import Page from '@Model/page.model';
 
+import CustomError from '@Middleware/error/customError';
+
 const getPage = async (req: Request, res: Response, next: NextFunction) => {
   const page_pk: Page['pk'] = req.query.page_pk;
   const limit: number | undefined = 10;
@@ -26,17 +28,11 @@ const getPage = async (req: Request, res: Response, next: NextFunction) => {
         },
       });
     } else {
-      res.status(412).json({
-        success: false,
-        message: '잘못된 요청데이터입니다.',
-      })
+      next(new CustomError({ name: 'Wrong_Data' }));
     }
   } catch(err) {
     console.log(err);
-    res.status(412).json({
-      success: false,
-      message: '잘못된 요청데이터입니다.',
-    });
+    next(new CustomError({ name: 'Database_Error' }));
 
   }
 

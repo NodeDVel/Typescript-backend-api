@@ -4,6 +4,8 @@ import Page from '@Model/page.model';
 import PageBoard from '@Model/pageBoard.model';
 import User from '@Model/user.model';
 
+import CustomError from '@Middleware/error/customError';
+
 const deletePage = async (req: Request, res: Response, next: NextFunction) => {
   const user: User = res.locals.user;
   const page_pk: Page['pk'] = req.query.page_pk;
@@ -31,22 +33,16 @@ const deletePage = async (req: Request, res: Response, next: NextFunction) => {
         },
       });
 
-      res.status(200).json({
+      res.json({
         success: true,
-        message: '페이지가 성공적으로 삭제되었습니다',
       });
+
     } else {
-      res.status(412).json({
-        success: false,
-        message: 'DB Error',
-      })
+      next(new CustomError({ name: 'Database_Error' }));
     }
   } catch (err) {
     console.log(err)
-    res.status(500).json({
-      success: false,
-      message: 'DB error',
-    });
+    next(new CustomError({ name: 'Database_Error' }));
   }
 }
 

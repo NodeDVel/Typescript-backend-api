@@ -3,6 +3,8 @@ import { NextFunction, Request, Response } from 'express';
 import Page from '@Model/page.model';
 import User from '@Model/user.model';
 
+import CustomError from '@Middleware/error/customError';
+
 const updatePage = async (req: Request, res: Response, next: NextFunction) => {
   const user: User = res.locals.user;
   const page_pk: Page['pk'] = req.query.page_pk;
@@ -32,10 +34,7 @@ const updatePage = async (req: Request, res: Response, next: NextFunction) => {
             },
           }).then((page: Page) => {
             if(!page) {
-              res.status(412).json({
-                success: false,
-                message: '수정된 페이지가 없습니다.',
-              });
+              next(new CustomError({ name: 'Wrong_Data' }));
             } else {
               res.json({
                 success: true,
@@ -48,10 +47,7 @@ const updatePage = async (req: Request, res: Response, next: NextFunction) => {
     } 
   } catch(err) {
       console.log(err);
-      res.status(500).json({
-        success: false,
-        message: '잘못된 요청데이터입니다. 다시 시도해주세요.',
-      });
+      next(new CustomError({ name: 'Database_Error' }));
   }
 }
 

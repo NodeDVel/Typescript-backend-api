@@ -41,10 +41,7 @@ const postPage = async (req: Request, res: Response, next: NextFunction) => {
     });
   } catch(err) {
     console.log(err);
-    res.status(500).json({
-      success: false,
-      message: 'DB error',
-    })
+    next(new CustomError({ name: 'Database_Error' }));
   }
 
 }
