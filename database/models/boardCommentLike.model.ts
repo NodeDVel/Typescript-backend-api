@@ -15,7 +15,7 @@ import BoardComment from './boardComment.model';
 import User from './user.model';
 
 @Table({
-    timestamps: true,
+  timestamps: true,
 })
 export default class BoardCommentLike extends Model<BoardCommentLike> {
   @AutoIncrement

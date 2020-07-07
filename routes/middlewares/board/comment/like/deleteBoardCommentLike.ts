@@ -28,9 +28,7 @@ const deleteBoardCommentLike = async (req: Request, res: Response, next: NextFun
       },
     });
 
-    res.status(200).json({
-      success: true,
-    })
+    res.json({ success: true });
   }
 }
 

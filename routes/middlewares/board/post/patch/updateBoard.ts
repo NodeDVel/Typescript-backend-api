@@ -5,7 +5,7 @@ import User from '@Model/user.model';
 
 import CustomError from '@Middleware/error/customError';
 
-const updateBoard = async (req:  Request, res: Response, next: NextFunction) => {
+const updateBoard = async (req: Request, res: Response, next: NextFunction) => {
   const user: User = res.locals.user;
   const board_pk: Board['pk'] = req.query.board_pk
   const title: string | undefined = req.body;
@@ -18,7 +18,7 @@ const updateBoard = async (req:  Request, res: Response, next: NextFunction) => 
       },
     });
 
-    if(update_board) {
+    if (update_board) {
       await Board.update(
         {
           title,
@@ -27,23 +27,23 @@ const updateBoard = async (req:  Request, res: Response, next: NextFunction) => 
         },
         {
           where: {
-          pk: board_pk,
+            pk: board_pk,
           },
         }).then((board: Board) => {
-            if(!board) {
-              next(new CustomError({ name: 'Wrong_Data' }));
-            } else {
-                res.status(200).json({
-                  success: true,
-                });
-              }
+          if (!board) {
+            next(new CustomError({ name: 'Wrong_Data' }));
+          } else {
+            res.status(200).json({
+              success: true,
+            });
+          }
         });
 
     }
-  } catch(err) {
-      console.error(err);
-      next(new CustomError({ name: 'Database_Error' }));
-    }
+  } catch (err) {
+    console.error(err);
+    next(new CustomError({ name: 'Database_Error' }));
+  }
 }
 
 export default updateBoard;

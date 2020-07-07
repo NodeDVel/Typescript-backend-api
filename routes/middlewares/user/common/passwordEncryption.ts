@@ -1,44 +1,35 @@
-import * as crypto from 'crypto';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction ,Request, Response } from 'express';
 
-import User from '../../../../database/models/user.model';
+import { pbkdf2Sync, randomBytes } from 'crypto';
 
-const passwordEncryption = async (req: Request, res: Response, next: NextFunction) => {
-    const user: User =  res.locals.user;
-    const password: string = req.body.password;
+import User from '@Model/user.model';
 
-    crypto.randomBytes(64, (randomBytesError, buf) => {
-        if(randomBytesError) {
-            console.log(randomBytesError);
-            res.status(403).json({
-                result: {
-                    SUCCESS: false,
-                    message: '알 수 없는 오류입니다',
-                }
-            });
+const passwordEncryption = (req: Request, res: Response, next: NextFunction) => {
+  const password: User['password'] = req.body.password;
+  const passwordKey: User['passwordKey'] =
+    (res.locals.user && res.locals.user.passwordKey) ||
+    randomBytes(64).toString('base64');
 
-        } else {
-            const bufBase64 = buf.toString('base64');
-            const EncryptedPassword = crypto.pbkdf2(password, bufBase64, 427832, 64, 'sha512', (pbkdf2Error, pwEncrypted) => {
-                if(pbkdf2Error) {
-                    console.log(pbkdf2Error);
-                    res.status(403).json({
-                        result: {
-                            SUCCESS: false,
-                            message: '알 수 없는 오류입니다',
-                        }
-                    });
+  const PASSWORD_ENCRYPTION_CONFIG = {
+    ITERATION: parseInt(process.env.PASSWORD_ENCRYPTION_ITERATION, 10),
+    KEY_LENGTH: parseInt(process.env.PASSWORD_ENCRYPTION_KEY_LENGTH, 10),
+    DIGEST: process.env.PASSWORD_ENCRYPTION_DIGEST
+  };
 
-                } else {
-                    User.update({ password: EncryptedPassword, },{ where : { pk: user.pk }});
+  const encryptionPassword: string = pbkdf2Sync(
+    password,
+    passwordKey,
+    PASSWORD_ENCRYPTION_CONFIG.ITERATION,
+    PASSWORD_ENCRYPTION_CONFIG.KEY_LENGTH,
+    PASSWORD_ENCRYPTION_CONFIG.DIGEST
+  ).toString('base64');
 
-                    res.locals.temp = {
-                        password: EncryptedPassword,
-                    };
-                }
-            });
-        }
-    });
-}
+  res.locals.temp = {
+    password: encryptionPassword,
+    passwordKey
+  };
+
+  next();
+};
 
 export default passwordEncryption;

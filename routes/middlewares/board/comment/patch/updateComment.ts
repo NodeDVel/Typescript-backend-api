@@ -31,7 +31,7 @@ const updateComment = async (req: Request, res: Response, next: NextFunction) =>
         });
 
       if (!comment) {
-        next(new CustomError({ name: 'Wrong_Data' }));
+        next(new CustomError({ name: 'Not_Found_Comment' }));
       } else {
         res.status(200).json({
           success: true,

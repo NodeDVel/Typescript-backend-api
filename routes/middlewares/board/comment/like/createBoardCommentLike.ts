@@ -40,9 +40,7 @@ const createBoardCommentLike = async (req: Request, res: Response, next: NextFun
           comment_pk,
         });
 
-        res.status(200).json({
-          success: true,
-        });
+        res.json({ success: true });
       }
     } else {
       next(new CustomError({ name: 'Database_Error' }));

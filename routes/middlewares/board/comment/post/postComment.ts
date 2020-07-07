@@ -6,6 +6,8 @@ import Board from '../../../../../database/models/board.model';
 import BoardComment from '../../../../../database/models/boardComment.model';
 import User from '../../../../../database/models/user.model';
 
+import CustomError from '@Middleware/error/customError';
+
 const createComment = async (req: Request, res: Response, next: NextFunction) => {
   const user: User = res.locals.user;
   const { board_pk }: PostCommentParams['body'] = req.body;
@@ -19,15 +21,15 @@ const createComment = async (req: Request, res: Response, next: NextFunction) =>
     });
 
     if (board) {
-      const boardComment: BoardComment = await BoardComment.create(
-        {
+      const boardComment: BoardComment = await BoardComment
+        .create({
           board_pk,
           comment,
           user_pk: user.pk,
           author: user.name,
         });
 
-      res.status(200).json({
+      res.json({
         success: true,
         data: {
           pk: boardComment.pk,
@@ -37,30 +39,15 @@ const createComment = async (req: Request, res: Response, next: NextFunction) =>
       });
 
       if (!boardComment) {
-        res.status(500).json({
-          result: {
-            SUCCESS: true,
-            message: '댓글이 작성되지 않았습니다.',
-          },
-        });
+        next(new CustomError({ name: 'Not_Found_Comment', message: '댓글이 작성되지 않았습니다.' }));
       } else {
-        res.status(200).json({
-          result: {
-            SUCCESS: true,
-            message: '댓글이 작성되었습니다.',
-          },
-        });
+        res.json({ success: true });
       }
 
     }
   } catch (err) {
     console.error(err);
-    res.status(500).json({
-      result: {
-        SUCCESS: false,
-        message: 'Server error',
-      }
-    });
+    next(new CustomError({ name: 'Database_Error' }));
   }
 }
 

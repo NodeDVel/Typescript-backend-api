@@ -22,9 +22,7 @@ const deleteHastagLog = async (req: Request, res: Response, next: NextFunction) 
   if (hastag) {
     next(new CustomError({ name: 'Database_Error' }));
   } else {
-    res.json({
-      success: true,
-    });
+    res.json({ success: true });
 
     next();
   }

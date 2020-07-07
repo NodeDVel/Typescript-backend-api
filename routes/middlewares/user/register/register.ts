@@ -1,4 +1,4 @@
-import { NextFunction, Request ,Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 
 import CustomError from '@Middleware/error/customError';
 
@@ -11,16 +11,16 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 
   try {
     await User.create({
-        id,
-        password,
-        name,
+      id,
+      password,
+      name,
     });
 
     res.json({
       success: true,
     });
 
-  } catch(error) {
+  } catch (error) {
     console.error(error);
     next(new CustomError({ name: 'Database_Error' }));
   }

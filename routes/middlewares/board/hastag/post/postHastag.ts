@@ -10,22 +10,23 @@ const postHastag = async (req: Request, res: Response, next: NextFunction) => {
   const hastag_name: string | number | undefined = req.body;
   const board_pk: postHastagRequest['body'] = req.body.board_pk;
 
-  if(hastag_name){
-    for(let i = 0; i < hastag_name[i]; i++) {
+  if (hastag_name) {
+    for (let i = 0; i < hastag_name[i]; i++) {
       await Hastag.create({
         board_pk,
         title: hastag_name[i],
       }).then((hastag: Hastag) => {
-          if (!hastag) {
-            next(new CustomError({ name: 'Database_Error' }));
-          } else {
-              console.log('hastag create OK!');
-              next();
-          }
+        if (!hastag) {
+          next(new CustomError({ name: 'Database_Error' }));
+        } else {
+          res.json({ success: true });
+
+          next();
+        }
       });
     }
   } else {
-    next(new CustomError({ name: 'Wrong_Data' }));  
+    next(new CustomError({ name: 'Wrong_Data' }));
   }
   res.json({
     success: true,

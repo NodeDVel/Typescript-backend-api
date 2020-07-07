@@ -23,51 +23,47 @@ const likeBoard = async (req: Request, res: Response, next: NextFunction) => {
         where: {
           user_pk: user.pk,
           board_pk,
-        }, 
+        },
       }).then(async (boardlike: BoardLike) => {
-          if(boardlike) {
-            const ConfirmLike = await BoardLike.destroy({
-              where: {
-                pk: user.pk,
-              },
-            });
-    
-            await BoardLike.update({
-               like: false,
-            }, {
-                  where: {
-                    pk: board_pk,
-                  },
-            });
-    
-            res.status(200).json({
-              success: true,
-            });
-          } else {
-              const CancelLike = await BoardLike.create({
-                user_pk: user.pk,
-                board_pk,
-              });
-    
-              await BoardLike.update(
-                {
-                  like: true,
-                }, {
-                    where: {
-                      pk: board_pk
-                    },
-              });
-    
-              res.status(200).json({
-                success: true,
-              });
-              }
+        if (boardlike) {
+          const ConfirmLike = await BoardLike.destroy({
+            where: {
+              pk: user.pk,
+            },
           });
+
+          await BoardLike.update({
+            like: false,
+          }, {
+            where: {
+              pk: board_pk,
+            },
+          });
+
+          res.json({ success: true });
+        } else {
+          const CancelLike = await BoardLike.create({
+            user_pk: user.pk,
+            board_pk,
+          });
+
+          await BoardLike.update(
+            {
+              like: true,
+            }, {
+            where: {
+              pk: board_pk
+            },
+          });
+
+          res.json({ success: true });
         }
-  } catch(err) {
-      console.error(err);
-      next(new CustomError({ name: 'Database_Error' }));
+      });
     }
+  } catch (err) {
+    console.error(err);
+    next(new CustomError({ name: 'Database_Error' }));
+  }
 }
 
 export default likeBoard;

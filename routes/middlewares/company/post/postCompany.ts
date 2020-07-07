@@ -15,19 +15,20 @@ const postCompany = async (req: Request, res: Response, next: NextFunction) => {
   const area: number = req.body.area;
 
   try {
-    const company: CompanyRecruit = await CompanyRecruit.create({
-      user_pk: user.pk,
-      information,
-      name,
-      pay,
-      area,
-    }, {
-      include: [
-        {
-          model: Hastag,
-        },
-      ],
-    });
+    const company: CompanyRecruit = await CompanyRecruit
+      .create({
+        user_pk: user.pk,
+        information,
+        name,
+        pay,
+        area,
+      }, {
+        include: [
+          {
+            model: Hastag,
+          },
+        ],
+      });
 
     res.json({
       success: true,
@@ -37,7 +38,7 @@ const postCompany = async (req: Request, res: Response, next: NextFunction) => {
           name: company.name,
           information: company.information,
           pay: company.pay,
-          area: company.area, 
+          area: company.area,
           hastag: _.map(company.hastag, hastag => ({
             hastag_pk: hastag.pk,
             hastag_name: hastag.name,
@@ -45,7 +46,7 @@ const postCompany = async (req: Request, res: Response, next: NextFunction) => {
         },
       },
     });
-  } catch(error) {
+  } catch (error) {
     console.log(error);
     next(new CustomError({ name: 'Database_Error' }));
   }

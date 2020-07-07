@@ -32,7 +32,7 @@ export default class Board extends Model<Board> {
   @Column(DataType.UUID)
   public user_pk: string;
 
-  @ForeignKey(() =>  BoardLike)
+  @ForeignKey(() => BoardLike)
   @AllowNull(false)
   @Column(DataType.INTEGER)
   public like_pk: BoardLike;
@@ -61,19 +61,19 @@ export default class Board extends Model<Board> {
   public author: string;
 
   @BelongsTo(() => User, {
-      onDelete: 'CASCADE',
+    onDelete: 'CASCADE',
   })
   public user: User;
 
   @HasMany(() => BoardComment, {
-      onDelete:'CASCADE',
+    onDelete: 'CASCADE',
   })
   public boardComment: BoardComment[];
 
   @HasMany(() => BoardLike, {
-      onDelete: 'CASCADE',
+    onDelete: 'CASCADE',
   })
-    public BoardLike: BoardLike[];
+  public BoardLike: BoardLike[];
 
   @HasMany(() => BoardCommentLike)
   public boardCommentLike: BoardCommentLike[];
