@@ -19,7 +19,7 @@ const postBoard = async (req: Request, res: Response, next: NextFunction) => {
         content,
       });
 
-      res.status(200).json({
+      res.json({
         success: true,
         data: {
           board: {
@@ -34,9 +34,7 @@ const postBoard = async (req: Request, res: Response, next: NextFunction) => {
       if(!board) {
         next(new CustomError({ name: 'Wrong_Data' }));
       } else {
-          res.status(200).json({
-            success: true,
-          });
+          res.json({ success: true });
         }
   } else {
     next(new CustomError({ name: 'Wrong_Data' }));

@@ -20,20 +20,20 @@ const updatePage = async (req: Request, res: Response, next: NextFunction) => {
       },
     });
 
-    if(updatePage) {
-        const [page]: [Page, unknown] = await Page.update(
-          {
-            pageName,
-            content,
-            introduction,
-            user_name: user.name,
-          },
+    if (updatePage) {
+      const [page]: [Page, unknown] = await Page
+        .update({
+          pageName,
+          content,
+          introduction,
+          user_name: user.name,
+        },
           {
             where: {
-              pk: page_pk,
+              pk: page_pk
             },
           }).then((page: Page) => {
-            if(!page) {
+            if (!page) {
               next(new CustomError({ name: 'Wrong_Data' }));
             } else {
               res.json({
@@ -44,10 +44,10 @@ const updatePage = async (req: Request, res: Response, next: NextFunction) => {
               });
             }
           });
-    } 
-  } catch(err) {
-      console.log(err);
-      next(new CustomError({ name: 'Database_Error' }));
+    }
+  } catch (err) {
+    console.log(err);
+    next(new CustomError({ name: 'Database_Error' }));
   }
 }
 

@@ -4,9 +4,13 @@ const postPageValidation: ValidationChain[] = [
   body('content')
   .isString()
   .isLength({ max: 700 }),
-  body('page_name')
+  body('pageName')
   .isString()
-  .isLength({ min: 2, max: 9}),
+  .isLength({ min: 2, max: 9 }),
+  body('introduction')
+    .isString()
+    .isLength({ max: 500 }),
+    
 ];
 
 export default postPageValidation;

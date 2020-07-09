@@ -15,18 +15,20 @@ const deletePageBoard = async (req: Request, res: Response, next: NextFunction) 
     });
 
     if(pageBoard){
-      const result = await PageBoard.destroy({
+      const checkByPageBoard = await PageBoard.destroy({
         where: {
           pk: pageBoard_pk,
         },
       });
 
-      if(result) {
+      if(checkByPageBoard) {
         next(new CustomError({ name: 'Database_Error' }));
       } else {
         res.json({
           success: true,
         });
+
+        next();
       }
       
     }

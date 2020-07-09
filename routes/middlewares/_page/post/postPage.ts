@@ -7,25 +7,24 @@ import CustomError from '@Middleware/error/customError';
 
 const postPage = async (req: Request, res: Response, next: NextFunction) => {
   const user: User = res.locals.user;
-  const pageName: string = req.body.name;
-  const content: string | undefined = req.body.content;
-  const introduction: string | undefined = req.body.introduction;
+  const pageName: Page['pageName'] = req.body.name;
+  const content: Page['content'] = req.body.content;
+  const introduction: Page['introduction'] = req.body.introduction;
 
   try {
 
-    if(pageName === undefined || null) {
-      next(new CustomError({ name: 'Wrong_Data'}));
+    if (pageName === undefined || null) {
+      next(new CustomError({ name: 'Wrong_Data' }));
     }
 
-    const page: Page = await Page.create(
-      {
+    const page: Page = await Page
+      .create({
         user_pk: user.pk,
         user_name: user.name,
         pageName,
         content,
         introduction,
-      },
-    )
+      })
 
     res.json({
       success: true,
@@ -39,7 +38,7 @@ const postPage = async (req: Request, res: Response, next: NextFunction) => {
         },
       },
     });
-  } catch(err) {
+  } catch (err) {
     console.log(err);
     next(new CustomError({ name: 'Database_Error' }));
   }

@@ -13,13 +13,13 @@ const postPageBoard = async (req: Request, res: Response, next: NextFunction) =>
   const content: string | undefined = req.body;
 
   try {
-    const resultPage: Page = await Page.findOne({
+    const findByPage: Page = await Page.findOne({
       where: {
         page_pk,
       },
     });
 
-    if(resultPage) {
+    if(findByPage) {
       const pageBoard: PageBoard = await PageBoard.create({
         page_pk,
         user_pk: user.pk,

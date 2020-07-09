@@ -1,28 +1,24 @@
 import { NextFunction, Request, Response } from 'express';
 
-import Hastag from '../../../../../database/models/hastag.model';
+import Hastag from '@Model/hastag.model';
 
-import CustromErorr from '../../../error/customError';
+import CustomError from '@Middleware/error/customError';
 
 const hastagStorageLog = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    await Hastag.findAll({
+    const hastag: Hastag[] = await Hastag.findAll({
       order: [['createdAt', 'DESC']],
-    }).then((hastag: Hastag[]) => {
-      if (!hastag) {
-        next(new CustromErorr({ name: 'Wrong_Data' }));
-      } else {
-        res.status(200).json({
-          result: {
-            SUCCESS: true,
-            message: 'find hastagLog',
-          },
-        });
-      }
     });
+
+    if(!hastag) {
+      next(new CustomError({ name: 'Database_Error' }));
+    }
+
+    res.json({ success: true });
+
   } catch (error) {
     console.log(error);
-    next(new CustromErorr({ name: 'Database_Error' }));
+    next(new CustomError({ name: 'Database_Error' }));
   }
 }
 

@@ -19,7 +19,7 @@ const getPostBoard = async (req: Request, res: Response, next: NextFunction) => 
     });
 
     if(page) {
-      const getResult: PageBoard = await PageBoard.findAll({
+      const pageBoard: PageBoard = await PageBoard.findAll({
         where: {
           pk: pageBoard_pk,
         },
@@ -29,7 +29,7 @@ const getPostBoard = async (req: Request, res: Response, next: NextFunction) => 
         success: true,
         data: {
           PageBoard: {
-            getResult,
+            pageBoard,
           },
         },
       });

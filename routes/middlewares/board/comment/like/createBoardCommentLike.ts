@@ -1,51 +1,57 @@
 import { NextFunction, Request, Response } from 'express';
 
-import Board from '../../../../../database/models/board.model';
-import BoardComment from '../../../../../database/models/boardComment.model';
-import BoardCommentLike from '../../../../../database/models/boardCommentLike.model';
-import User from '../../../../../database/models/user.model';
+import Board from '@Model/board.model';
+import BoardComment from '@Model/boardComment.model';
+import BoardCommentLike from '@Model/boardCommentLike.model';
+import BoardLike from '@Model/boardlike.model';
+import User from '@Model/user.model';
 
-import CustomError from '../../../../../routes/middlewares/error/customError';
+import CustomError from '@Middleware/error/customError';
 
 const createBoardCommentLike = async (req: Request, res: Response, next: NextFunction) => {
   const user: User = res.locals.user;
-  const board_pk = req.query.board_pk;
-  const comment_pk = req.query.comment_pk;
-  const like_pk = req.query.like_pk;
+  const board_pk: Board['pk'] = req.query.board_pk;
+  const comment_pk: BoardComment['pk'] = req.query.comment_pk;
+  const like_pk: BoardLike['pk'] = req.query.like_pk;
 
-  const board: Board | undefined = await Board.findOne({
-    where: {
-      board_pk,
-    },
-  });
-
-  if (board) {
-    const comment: BoardComment | undefined = await BoardComment.findOne({
+  try {
+    const board: Board | undefined = await Board.findOne({
       where: {
-        comment_pk,
+        board_pk,
       },
     });
 
-    if (comment) {
-      const commentLike: BoardCommentLike | undefined = await BoardCommentLike.findOne({
+    if (board) {
+      const comment: BoardComment | undefined = await BoardComment.findOne({
         where: {
-          user_pk: user.pk,
-          like_pk,
+          comment_pk,
         },
       });
 
-      if (!commentLike) {
-        BoardCommentLike.create({
-          user_pk: user.pk,
-          comment_pk,
+      if (comment) {
+        const commentLike: BoardCommentLike | undefined = await BoardCommentLike.findOne({
+          where: {
+            pk: like_pk,
+            user_pk: user.pk,
+          },
         });
 
-        res.json({ success: true });
+        if (!commentLike) {
+          await BoardCommentLike.create({
+            user_pk: user.pk,
+            comment_pk,
+          });
+
+          res.json({ success: true });
+        }
+      } else {
+        next(new CustomError({ name: 'Database_Error' }));
       }
     } else {
       next(new CustomError({ name: 'Database_Error' }));
     }
-  } else {
+  } catch (err) {
+    console.log(err)
     next(new CustomError({ name: 'Database_Error' }));
   }
 }

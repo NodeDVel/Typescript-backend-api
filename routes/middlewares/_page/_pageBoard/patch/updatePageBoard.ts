@@ -10,7 +10,7 @@ const updatePageBoard = async (req: Request, res: Response, next: NextFunction) 
   const content: string = req.body.content;
 
   try {
-    if(!title) {
+    if (!title) {
       res.redirect('/');
     } else {
       const pageBoard: PageBoard | null = await PageBoard.findOne({
@@ -19,19 +19,19 @@ const updatePageBoard = async (req: Request, res: Response, next: NextFunction) 
         },
       });
 
-      if(!pageBoard) {
+      if (!pageBoard) {
         next(new CustomError({ name: 'Wrong_Data' }));
       } else {
-        const [now_pageBoard]: [PageBoard, unknown]  = await PageBoard.update(
-        {
-          title,
-          content,
-        },
-        {
-          where: {
-            pk: pageBoard_pk,
+        const [now_pageBoard]: [PageBoard, unknown] = await PageBoard
+          .update({
+            title,
+            content,
           },
-        });
+          {
+            where: {
+              pk: pageBoard_pk,
+            },
+          });
 
         res.json({
           success: true,
@@ -45,7 +45,7 @@ const updatePageBoard = async (req: Request, res: Response, next: NextFunction) 
         })
       }
     }
-  } catch(err) {
+  } catch (err) {
     console.log(err);
   }
 }

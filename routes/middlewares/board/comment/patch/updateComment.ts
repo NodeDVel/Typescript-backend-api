@@ -19,23 +19,21 @@ const updateComment = async (req: Request, res: Response, next: NextFunction) =>
     });
 
     if (board) {
-      const comment: BoardComment[] = await BoardComment.update(
-        {
+      const comment: BoardComment[] = await BoardComment
+        .update({
           author: user.name,
           content,
         },
-        {
-          where: {
-            pk: board_pk,
-          },
-        });
+          {
+            where: {
+              pk: board_pk,
+            },
+          });
 
       if (!comment) {
         next(new CustomError({ name: 'Not_Found_Comment' }));
       } else {
-        res.status(200).json({
-          success: true,
-        });
+        res.json({ success: true });
       }
 
     }

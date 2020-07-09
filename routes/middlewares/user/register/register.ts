@@ -7,12 +7,13 @@ import User from '@Model/user.model';
 const register = async (req: Request, res: Response, next: NextFunction) => {
   const id: User['id'] = req.body.id;
   const name: User['name'] = req.body.name;
-  const password: User['password'] = res.locals.temp.password;
+  const { password, passwordKey } = res.locals.temp.password;
 
   try {
     await User.create({
       id,
       password,
+      passwordKey,
       name,
     });
 

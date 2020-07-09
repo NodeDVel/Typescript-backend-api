@@ -7,8 +7,8 @@ import Group from '@Model/group.model';
 
 const postGroup = async (req: Request, res: Response, next: NextFunction) => {
   const user: User = res.locals.user;
-  const groupName: string = req.body;
-  const groupInformation: string | undefined = req.body;
+  const groupName: string = req.body.groupName;
+  const groupInformation: string | undefined = req.body.groupInformation;
 
   try {
     if(!user){

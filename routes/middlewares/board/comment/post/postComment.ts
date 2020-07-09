@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 
 import { PostCommentParams } from './_validation';
 
-import Board from '../../../../../database/models/board.model';
-import BoardComment from '../../../../../database/models/boardComment.model';
-import User from '../../../../../database/models/user.model';
+import Board from '@Model/board.model';
+import BoardComment from '@Model/boardComment.model';
+import User from '@Model/user.model';
 
 import CustomError from '@Middleware/error/customError';
 

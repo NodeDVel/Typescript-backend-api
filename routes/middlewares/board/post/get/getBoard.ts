@@ -14,10 +14,10 @@ const getBoard = async (req: Request, res: Response, next: NextFunction) => {
       where: {
         board_pk,
       },
-        limit,
-        offset: page * limit,
-        order: [['createAt', 'DESC']],
-        attributes: ['pk', 'user_pk', 'user_name', 'content', 'crateAt'],
+      limit,
+      offset: page * limit,
+      order: [['createAt', 'DESC']],
+      attributes: ['pk', 'user_pk', 'user_name', 'content', 'crateAt'],
     });
 
     if (board) {
@@ -30,7 +30,7 @@ const getBoard = async (req: Request, res: Response, next: NextFunction) => {
         },
       });
     } else {
-       next(new CustomError({ name: 'Wrong_Data' }));
+      next(new CustomError({ name: 'Wrong_Data' }));
     }
   } catch (error) {
     console.log(error);

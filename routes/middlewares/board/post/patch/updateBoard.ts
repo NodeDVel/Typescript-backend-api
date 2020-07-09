@@ -12,32 +12,30 @@ const updateBoard = async (req: Request, res: Response, next: NextFunction) => {
   const content: string | undefined = req.body;
 
   try {
-    const update_board: Board | undefined = await Board.findOne({
+    const board: Board | undefined = await Board.findOne({
       where: {
         board_pk,
       },
     });
 
-    if (update_board) {
-      await Board.update(
-        {
+    if (board) {
+      await Board
+        .update({
           title,
           content,
           author: user.name,
         },
-        {
-          where: {
-            pk: board_pk,
-          },
-        }).then((board: Board) => {
-          if (!board) {
-            next(new CustomError({ name: 'Wrong_Data' }));
-          } else {
-            res.status(200).json({
-              success: true,
-            });
-          }
-        });
+          {
+            where: {
+              pk: board_pk,
+            },
+          }).then((board: Board) => {
+            if (!board) {
+              next(new CustomError({ name: 'Wrong_Data' }));
+            } else {
+              res.json({ success: true });
+            }
+          });
 
     }
   } catch (err) {

@@ -15,15 +15,13 @@ const deletePage = async (req: Request, res: Response, next: NextFunction) => {
       where: {
         pk: page_pk,
       },
-      include: [
-        {
-          model: PageBoard,
-          where: {
-            pk: page_pk,
-            user_pk: user.pk,
-          },
-        }
-      ],
+      include: [{
+        model: PageBoard,
+        where: {
+          pk: page_pk,
+          user_pk: user.pk,
+        },
+      }],
     });
 
     if (page) {
@@ -33,9 +31,7 @@ const deletePage = async (req: Request, res: Response, next: NextFunction) => {
         },
       });
 
-      res.json({
-        success: true,
-      });
+      res.json({ success: true });
 
     } else {
       next(new CustomError({ name: 'Database_Error' }));

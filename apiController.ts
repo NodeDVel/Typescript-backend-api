@@ -8,7 +8,7 @@ import commentController from './routes/controllers/comment.controller';
 import userController from './routes/controllers/user.controller';
 
 router.use('/user', userController);
-router.use('/board2', boardController);
-router.use('/comment2', commentController);
+router.use('/board', boardController);
+router.use('/comment', commentController);
 
 export default router;

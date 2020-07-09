@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 
-import Board from '../../../../../database/models/board.model';
-import BoardComment from '../../../../../database/models/boardComment.model';
-import User from '../../../../../database/models/user.model';
+import Board from '@Model/board.model';
+import BoardComment from '@Model/boardComment.model';
+import User from '@Model/user.model';
 
 import CustomError from '@Middleware/error/customError';
 
@@ -16,25 +16,21 @@ const deleteComment = async (req: Request, res: Response, next: NextFunction) =>
       where: {
         pk: board_pk,
       },
-      include: [
-        {
-          model: BoardComment,
-          where: {
-            pk: comment_pk,
-            user_pk: user.pk,
-          },
+      include: [{
+        model: BoardComment,
+        where: {
+          pk: comment_pk,
+          user_pk: user.pk,
         },
-      ],
+      }],
     });
 
     if (board) {
-      await BoardComment.destroy({
-        where: {
-          pk: comment_pk,
-        },
-      });
+      await BoardComment.destroy({ where: { pk: comment_pk }});
 
       res.json({ succes: true });
+
+      next();
 
     } else {
       next(new CustomError({ name: 'Wrong_Data' }));
