@@ -15,30 +15,27 @@ const putAdminCompany = async (req: Request, res: Response, next: NextFunction) 
   const area: CompanyRecruit['area'] = req.body;
 
   try {
-    const companyRecurit: CompanyRecruit = await CompanyRecruit.findOne({
-      where: {
-        pk: company_pk,
-      },
-    });
+    const companyRecurit: CompanyRecruit = await CompanyRecruit.findOne({ where: { pk: company_pk }});
 
-    if(!companyRecurit) {
+    if(companyRecurit) {
+      const updateCompanyRecurit: CompanyRecruit = await companyRecurit.update({
+        name,
+        information,
+        personnel,
+        pay,
+        area,
+      });
+  
+      res.json({
+        success: true,
+        data: {
+          companyRecurit: updateCompanyRecurit,
+        },
+      });
+    } else {
       next(new CustomError({ name: 'Wrong_Data' }));
     }
 
-    await companyRecurit.update({
-      name,
-      information,
-      personnel,
-      pay,
-      area,
-    });
-
-    res.json({
-      success: true,
-      data: {
-        companyRecurit,
-      },
-    });
 
   } catch(error) {
     console.log(error);

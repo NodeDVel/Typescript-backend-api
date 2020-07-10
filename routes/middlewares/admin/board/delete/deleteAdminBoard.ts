@@ -10,21 +10,19 @@ const deleteAdminBoard = async (req: Request, res: Response, next: NextFunction)
   const { board_pk }: deleteAdminBoardRequest['query'] = req.query;
 
   try {
-    const board: Board = await Board.destroy({
-      where: {
-        board_pk,
-      },
-    });
+    const board: Board = await Board.findOne({ where: { pk: board_pk } });
 
-    if(board) {
+    if (board) {
+      await board.destroy();
+
+      res.json({
+        success: true,
+      });
+    } else {
       next(new CustomError({ name: 'Wrong_Data' }));
     }
-    
-    res.json({
-      success: true,
-    });
 
-  } catch(error) {
+  } catch (error) {
     console.log(error);
     next(new CustomError({ name: 'Database_Error' }));
   }

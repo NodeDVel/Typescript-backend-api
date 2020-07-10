@@ -10,20 +10,23 @@ const deleteAdminNotice = async (req: Request, res: Response, next: NextFunction
   const { notice_pk }: deleteAdminNoticeRequest['query'] = req.query;
 
   try {
-    const notice: Notice = await Notice.destroy({
+    const notice: Notice = await Notice.findOne({
       where: {
-        notice_pk,
+        pk: notice_pk,
       },
     });
 
-    if(notice) {
+    if (notice) {
+      await notice.destroy();
+
+      res.json({
+        success: true,
+      });
+    } else {
       next(new CustomError({ name: 'Wrong_Data' }));
     }
 
-    res.json({
-      success: true,
-    });
-  } catch(error) {
+  } catch (error) {
     console.log(error);
     next(new CustomError({ name: 'Database_Error' }));
   }

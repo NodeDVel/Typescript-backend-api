@@ -9,11 +9,19 @@ const deleteAdminPage = async (req: Request, res: Response, next: NextFunction) 
   const { page_pk }: deleteAdminPageRequest['query'] = req.query;
 
   try {
-    const page: Page = await Page.destroy({
+    const page: Page = await Page.findOne({
       where: {
         page_pk,
       },
     });
+
+    if(page) {
+      await page.destroy();
+
+      res.json({ success: true });
+    } else {
+      next(new CustomError({ name: 'Wrong_Data' }));
+    }
 
     if(page) {
       next(new CustomError({ name: 'Database_Error' }));

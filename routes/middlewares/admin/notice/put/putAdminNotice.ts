@@ -12,27 +12,24 @@ const putAdminNotice = async (req: Request, res: Response, next: NextFunction) =
   const content: Notice['content'] = req.body;
 
   try {
-    const notice: Notice = await Notice.findOne({
-      where: {
-        pk: notice_pk,
-      },
-    });
+    const notice: Notice = await Notice.findOne({ where: { pk: notice_pk }});
 
-    if (!notice) {
+    if (notice) {
+      const updateNotice = await notice.update({
+        title,
+        content,
+      });
+  
+      res.json({
+        success: true,
+        data: {
+          notice: updateNotice,
+        },
+      });
+    } else {
       next(new CustomError({ name: 'Wrong_Data' }));
     }
 
-    await notice.update({
-      title,
-      content,
-    });
-
-    res.json({
-      success: true,
-      data: {
-        notice,
-      },
-    });
 
   } catch(error) {
     console.log(error);

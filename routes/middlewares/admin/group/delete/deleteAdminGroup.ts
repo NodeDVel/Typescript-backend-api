@@ -12,7 +12,8 @@ const deleteAdminGroup = async (req: Request, res: Response, next: NextFunction)
 
     if(group) {
       await group.destroy();
-      await res.json({
+
+      res.json({
         success: true,
       });
     } else {
