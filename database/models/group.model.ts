@@ -11,6 +11,7 @@ import {
   Table
 } from 'sequelize-typescript';
 
+import Admin from './admin.model';
 import Event from './event.model';
 import User from './user.model';
 
@@ -44,6 +45,9 @@ export default class Group extends Model<Group> {
     onDelete: 'CASCADE',
   })
   public user: User;
+
+  @BelongsTo(() => Admin)
+  public admin: Admin;
 
   @HasMany(() => Event)
   public event: Event[];

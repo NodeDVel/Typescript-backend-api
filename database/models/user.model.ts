@@ -41,10 +41,6 @@ export default class User extends Model<User> {
   @Column(DataType.STRING)
   public name: string;
 
-  @AllowNull(false)
-  @Column(DataType.BOOLEAN)
-  public admin: boolean;
-
   @HasMany(() => Board)
   public board: Board[];
 
