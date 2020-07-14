@@ -11,7 +11,7 @@ import {
   Table
 } from 'sequelize-typescript';
 
-import Group from './group.model';
+import Admin from './admin.model';
 import User from './user.model';
 
 @Table({
@@ -29,11 +29,14 @@ export default class Event extends Model<Event> {
   @Column(DataType.UUID)
   public user_pk: string;
 
-  @ForeignKey(() => Group)
+  @ForeignKey(() => Admin)
   @AllowNull(false)
   @Column(DataType.INTEGER)
-  public group_pk: number;
+  public admin_pk: Admin['pk'];
 
+  @AllowNull(false)
+  @Column(DataType.STRING)
+  public admin_name: Admin["name"];
   @Column(DataType.STRING)
   public eventName: string;
 
@@ -48,8 +51,4 @@ export default class Event extends Model<Event> {
   })
   public user: User;
 
-  @BelongsTo(() => Group, {
-    onDelete: 'CASADE',
-  })
-  public group: Group;
 }
