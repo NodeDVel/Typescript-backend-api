@@ -4,11 +4,11 @@ import {
   BelongsTo,
   Column,
   DataType,
+  Default,
   ForeignKey,
-  HasMany,
   Model,
   PrimaryKey,
-  Table
+  Table,
 } from 'sequelize-typescript';
 
 import Admin from './admin.model';
@@ -37,14 +37,23 @@ export default class Event extends Model<Event> {
   @AllowNull(false)
   @Column(DataType.STRING)
   public admin_name: Admin["name"];
+
+  @AllowNull(false)
   @Column(DataType.STRING)
   public eventName: string;
 
+  @AllowNull(false)
   @Column(DataType.TEXT)
   public description: string;
 
+  @AllowNull(false)
   @Column(DataType.INTEGER)
   public period: number;
+
+  @Default(false)
+  @AllowNull(false)
+  @Column(DataType.BOOLEAN)
+  public approved: boolean;
 
   @BelongsTo(() => User, {
     onDelete: 'CASCADE',
