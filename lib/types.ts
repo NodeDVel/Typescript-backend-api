@@ -14,3 +14,8 @@ export enum ErrorNames {
   Not_Found_Board = 'Not_Found_Board',
   Not_Found_Comment = 'Not_Found_Comment',
 }
+
+// tslint:disable-next-line: interface-name
+export interface AdminWithoutPK {
+  pk: string;
+}
