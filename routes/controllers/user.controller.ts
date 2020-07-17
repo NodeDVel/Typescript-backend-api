@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 const router = Router();
 
-import changepassword from '../middlewares/user/changePassword/changePassword';
+import changepassword from '../middlewares/user/patchPassword/patchPassword';
 
 import CheckUser from '../middlewares/user/common/CheckUser';
 import passwordEncryption from '../middlewares/user/common/passwordEncryption';

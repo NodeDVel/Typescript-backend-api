@@ -19,11 +19,18 @@ const putAdminBoard = async (req: Request, res: Response, next: NextFunction) =>
       }
     });
 
-    await board.update({
+    const updateBoard: Board = await board.update({
       title,
       content,
       author,
     });
+
+    res.json({
+      sucess: true,
+      data: {
+        updateBoard,
+      },
+    })
     
   } catch(error) {
     console.log(error);
